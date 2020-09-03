@@ -1,0 +1,29 @@
+.organisation_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dadada;
+}
+
+.organisation_item.stopItem {
+    background: #ffb5b5;
+}
+
+.organisation_item.title{
+    background: #dadada;
+    font-weight: bold;
+}
+
+.organisation_item div {
+    padding: 5px;
+    width: 30%;
+    text-align: left;
+}
+
+.organisation_item.title div {
+    text-align: center;
+}
+
+.organisation_item div:first-child {
+    width: 40%;
+}

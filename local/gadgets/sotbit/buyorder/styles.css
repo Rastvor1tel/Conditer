@@ -1,0 +1,175 @@
+/*
+ * Copyright (c) 2017. Sergey Danilkin.
+ */
+
+.sotbit-cabinet-gadget-buyorder .gdheader {
+	background-color: #052640;
+	padding: 10px 10px 10px 15px;
+	color: #ffffff;
+	font-family: ProximaNova, Calibri;
+	font-size: 15px;
+	font-weight: normal;
+}
+.sotbit-cabinet-gadget-buyorder a.gdremove,
+.sotbit-cabinet-gadget-buyorder a.gdsettings,
+.sotbit-cabinet-gadget-buyorder a.gdhide,
+.sotbit-cabinet-gadget-buyorder a.gdshow,
+.sotbit-cabinet-gadget-buyorder a.gdshow:hover,
+.sotbit-cabinet-gadget-buyorder a.gdremove:hover,
+.sotbit-cabinet-gadget-buyorder a.gdsettings:hover,
+.sotbit-cabinet-gadget-buyorder a.gdhide:hover {
+	float: right;
+	height: 19px;
+	width: 19px;
+	margin-left: 3px;
+	margin-top: 0;
+	overflow: hidden;
+	position: relative;
+	background-image: url(img/sw_buttons-w.png);
+}
+.sotbit-cabinet-gadget-buyorder a.gdremove {
+	background-position: -42px 0;
+	border: 1px solid #28445a;
+	border-radius: 50%;
+	background-color: #28445a;
+}
+.sotbit-cabinet-gadget-buyorder a.gdremove:hover {
+	border: 1px solid #ffffff;
+	border-radius: 50%;
+}
+.sotbit-cabinet-gadget-buyorder a.gdhide {
+	background-position: -22px 0;
+	border: 1px solid #28445a;
+	border-radius: 50%;
+	background-color: #28445a;
+}
+.sotbit-cabinet-gadget-buyorder a.gdhide:hover {
+	border: 1px solid #ffffff;
+	border-radius: 50%;
+}
+.sotbit-cabinet-gadget-buyorder .buyorder-cost {
+	background-color: #052640;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.sotbit-cabinet-gadget-buyorder .buyorder-cost span {
+	padding: 10px 10px 10px 15px;
+	color: #9ca4b1;
+	font-family: ProximaNova, Calibri;
+	font-size: 14px;
+	font-weight: normal;
+	display: inline-block;
+}
+.sotbit-cabinet-gadget-buyorder .buyorder-cost span:last-child {
+	color: white;
+	font-size: 24px;
+	font-weight: normal;
+}
+.sotbit-cabinet-gadget-buyorder .gdparent {
+	border: 1px solid #dadada;
+	position: relative;
+	background-color: #ffffff;
+}
+.sotbit-cabinet-gadget-buyorder .buyorder-name {
+	padding: 10px 10px 10px 15px;
+	color: #052640;
+	font-family: ProximaNova, Calibri;
+	font-size: 15px;
+	font-weight: normal;
+}
+.sotbit-cabinet-gadget-buyorder .buyorder-info {
+	padding: 2px 10px 0px 15px;
+	color: #6c727d;
+	font-family: ProximaNova, Calibri;
+	font-size: 14px;
+	font-weight: normal;
+}
+.sotbit-cabinet-gadget-buyorder .buyorder-info span:last-child {
+	color: #33363b;
+	font-family: ProximaNova, Calibri;
+	font-size: 14px;
+	font-weight: normal;
+}
+.sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link {
+	padding: 15px 10px 15px 15px;
+	color: #052640;
+	font-family: ProximaNova, Calibri;
+	font-size: 15px;
+	font-weight: normal;
+	display: flex;
+	justify-content: space-between;
+}
+.sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link a:first-child {
+	background-color: #052640;
+	display: inline-block;
+	color: white;
+	text-decoration: none;
+	padding: 8px 15px;
+	font-size: 16px;
+	font-weight: 500;
+}
+.sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link a:last-child {
+	display: inline-block;
+	text-decoration: none;
+	color: #6c727d;
+	margin: 8px 15px;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 18px;
+	border-bottom: 1px dotted;
+}
+
+
+
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdsettings {
+	display: none;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdsettings,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdhide,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdremove {
+	border: 1px solid #28445a;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder .gdheader {
+	margin: 0;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder .gdcontent {
+	padding: 0;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link {
+	padding: 15px 10px 15px 0px;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link a:last-child {
+	color: #ffffff;
+	border-bottom: none;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdsettings:hover,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdhide:hover,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdremove:hover {
+	border: 1px solid #28445a;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdsettings,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdhide,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdremove,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdsettings:hover,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdhide:hover,
+.sotbit_cabinet .sotbit-cabinet-gadget-buyorder a.gdremove:hover {
+	border: 1px solid #052640;
+}
+.sotbit-cabinet-gadget-buyorder a.gdsettings {
+	display: none!important;
+}
+.sotbit-cabinet-gadget-buyorder .gdheader {
+	margin: 0!important;
+}
+.sotbit-cabinet-gadget-buyorder .gdcontent {
+	padding: 0!important;
+}
+.sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link {
+	padding: 15px 10px 15px 0px!important;
+}
+.sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link a:last-child {
+	color: #ffffff!important;
+	border-bottom: none!important;
+}

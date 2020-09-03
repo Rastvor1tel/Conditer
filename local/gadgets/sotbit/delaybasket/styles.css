@@ -1,0 +1,183 @@
+.sotbit-cabinet-gadget-delaybasket .gdparent {
+	border: 1px solid #dadada;
+	position: relative;
+	background-color: #f8f8f8;
+}
+.sotbit-cabinet-gadget-delaybasket .gdheader {
+	background-color: transparent;
+	padding: 10px 10px 10px 15px;
+	margin: 1px;
+	color: #000;
+	font-family: ProximaNova, Calibri;
+	font-size: 15px;
+	font-weight: normal;
+}
+.sotbit-cabinet-gadget-delaybasket .gdcontent {
+	padding: 10px 15px;
+	zoom: 1;
+	color: #303030;
+	font-size: 16px;
+	font-weight: normal;
+	font-family: ProximaNova, Calibri;
+}
+.sotbit-cabinet-gadget-delaybasket .gdhtmlareachlink a {
+	color: #6f727c;
+	font-size: 15px;
+	font-family: ProximaNova, Calibri;
+	text-decoration: none;
+	padding-bottom: 1px;
+	border-bottom: 1px dotted #6f727c;
+	line-height: 30px;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsettrow {
+	margin: 4px 15px 4px 12px;
+	color: #6f727c;
+	font-size: 15px;
+	font-family: ProximaNova, Calibri;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsettrow input[type='text'] {
+	color: #052640;
+	font-size: 15px;
+	font-family: ProximaNova, Calibri;
+	width: 100%;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsettrow input[type='text']:focus,
+.sotbit-cabinet-gadget-delaybasket .gdsettrow input[type='text']:active {
+	outline: auto 5px;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsettrow input[type='button'] {
+	color: #6f727c;
+	font-size: 15px;
+	font-family: ProximaNova, Calibri;
+	font-weight: normal;
+	background: #dadada;
+	border: none;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdremove {
+	background-position: -42px 0;
+	border: 1px solid #f8f8f8;
+	border-radius: 50%;
+	background-color: #eeeeee;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdremove:hover {
+	border: 1px solid #6f7580;
+	border-radius: 50%;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdhide {
+	background-position: -22px 0;
+	border: 1px solid #f8f8f8;
+	border-radius: 50%;
+	background-color: #eeeeee;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdhide:hover {
+	border: 1px solid #6f7580;
+	border-radius: 50%;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdsettings {
+	background-position: -3px 0;
+	border: 1px solid #f8f8f8;
+	border-radius: 50%;
+	background-color: #eeeeee;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdsettings:hover {
+	border: 1px solid #6f7580;
+	border-radius: 50%;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdremove,
+.sotbit-cabinet-gadget-delaybasket a.gdsettings,
+.sotbit-cabinet-gadget-delaybasket a.gdhide,
+.sotbit-cabinet-gadget-delaybasket a.gdshow,
+.sotbit-cabinet-gadget-delaybasket a.gdshow:hover,
+.sotbit-cabinet-gadget-delaybasket a.gdremove:hover,
+.sotbit-cabinet-gadget-delaybasket a.gdsettings:hover,
+.sotbit-cabinet-gadget-delaybasket a.gdhide:hover {
+	float: right;
+	height: 19px;
+	width: 19px;
+	margin-left: 3px;
+	margin-top: 0;
+	overflow: hidden;
+	position: relative;
+	background-image: url(img/sw_buttons.png);
+}
+.sotbit-cabinet-gadget-delaybasket .gdoptions {
+	padding: 4px;
+	background-color: transparent;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsetcartinfo-img {
+	display: flex;
+	flex-direction: row;
+	margin: 13px 0 5px 0;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsetcartinfo-img .block-cart-img {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: 5px;
+	width: 45px;
+	height: 45px;
+	background-position: top center;
+}
+.sotbit-cabinet-gadget-delaybasket .gdsetcartinfo span:nth-child(0n + 2) {
+	color: #9ca4b1;
+}
+
+
+
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdsettings,
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdhide,
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdremove,
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdsettings:hover,
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdhide:hover,
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdremove:hover {
+	border: 1px solid #f8f8f8;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket .gdsettrow input[type='button'] {
+	color: #6f727c;
+	font-size: 15px;
+	font-family: ProximaNova, Calibri;
+	font-weight: normal;
+	border: 1px solid #6f727c;
+	background-color: transparent;
+	padding: 1px 6px;
+}
+.sotbit_cabinet .sotbit-cabinet-gadget-delaybasket a.gdsettings {
+	display: none;
+}
+
+.sotbit-cabinet-gadget-delaybasket .gdsetcartinfo-img {
+	display: flex!important;
+	flex-direction: row!important;
+	flex-wrap: wrap!important;
+	margin: 13px 0 5px 0!important;
+	box-sizing: border-box!important;
+}
+.sotbit-cabinet-gadget-delaybasket .gdcontent {
+	padding: 10px 15px!important;
+	zoom: 1!important;
+	color: #303030!important;
+	font-size: 16px!important;
+	font-weight: normal!important;
+	font-family: ProximaNova, Calibri!important;
+	box-sizing: border-box!important;
+}
+.sotbit-cabinet-gadget-delaybasket a.gdsettings {
+	display: none!important;
+}
+.sotbit-cabinet-gadget-delaybasket .gdhtmlareachlink a {
+	color: #6f727c!important;
+	font-size: 15px!important;
+	font-family: ProximaNova, Calibri!important;
+	text-decoration: none!important;
+	padding-bottom: 1px!important;
+	border-bottom: 1px dotted #6f727c!important;
+	line-height: 30px!important;
+	font-weight: normal!important;
+}
+.sotbit-cabinet-gadget-delaybasket .gdparent {
+	border: 1px solid #dadada!important;
+	position: relative!important;
+	background-color: #f8f8f8!important;
+	box-sizing: border-box!important;
+}

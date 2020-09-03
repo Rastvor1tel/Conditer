@@ -1,0 +1,1237 @@
+@import "variables.scss";
+@import "style_prewiew.scss";
+@import "review.scss";
+
+
+
+// ___ product_card__block_buy_quantity product - card ________ 
+.product_card__block_buy_quantity__input,
+.product_card__block_buy_quantity__minus,
+.product_card__block_buy_quantity__plus {
+  color: #a1a1a1;
+  border: 1px solid #e6e6e6;
+  text-align: center;
+  width: 30px;
+  min-height: 35px;
+  display: inline-block;
+  line-height: 35px;
+  height: 100%;
+}
+
+.product_card__block_buy_quantity__input {
+  border-left: none;
+  border-right: none;
+}
+
+.product_card__block_buy_quantity__minus {
+  line-height: 35px;
+}
+
+.product_card__block_buy_quantity__minus,
+.product_card__block_buy_quantity__plus {
+  width: 20px;
+
+  &:hover {
+    background: #f2f2f2;
+    cursor: pointer;
+  }
+}
+
+.product_card__block_buy_quantity__input {
+  color: #000000;
+}
+
+.product_card__block_buy_quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px;
+}
+
+.product_card__block_buy {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+//--------tabs detailed-------------------
+
+// -------------------------------------------------------------------
+
+// .detailed-tabs {
+//   margin-bottom: 60px;
+//   padding-left: 15px;
+//   padding-right: 15px;
+//   font-size: 13px;
+
+//   & p {
+//     font-size: 13px;
+//   }
+// }
+// // -------
+// .detailed-tabs__tabs {
+//   display: flex;
+//   flex-wrap: wrap;
+//   margin-bottom: 0;
+//   border-bottom: 1px solid #ededed;
+// }
+
+// .detailed-tabs__tabs-content {
+//   border: 1px solid #ededed;
+//   border-top: none;
+
+//   & p {
+//     padding-bottom: 0;
+//   }
+// }
+
+// .detailed-tabs__tabs-item {
+//   position: relative;
+//   margin-top: 10px;
+//   margin-bottom: 0;
+//   padding: 0 20px;
+//   transition: all 0.3s ease-out;
+//   cursor: pointer;
+
+//   & p {
+//     padding-bottom: 12px;
+//     font-size: 15px;
+//     font-weight: 700;
+//   }
+
+//   &.active {
+//     color: #fb0040;
+
+//     &::after {
+//       content: "";
+//       position: absolute;
+//       height: 1px;
+//       width: 100%;
+//       bottom: -1px;
+//       left: 0;
+//       background-color: #fb0040;
+//     }
+//   }
+
+//   &:hover {
+//     color: #fb0040;
+//   }
+// }
+
+// .detailed-tabs__content  {
+//   display: none;
+//   width: 100%;
+//   padding: 40px 45px;
+
+//   &.active {
+//     display: flex;
+//   }
+
+//   &.detailed-tabs__options {
+//     padding-top: 36px;
+//   }
+// }
+
+// //-------description-----------------
+
+// .wd_propsorter {
+//   width: 100% !important;
+
+//   & table {
+//     width: 100% !important;
+//   }
+
+//   & tr:not(.row_header) td {
+//     padding-left: 32px !important;
+//     padding-right: 32px !important;
+//   }
+
+//   & tr:not([class]):nth-child(2n) {
+//     background-color: #f6f6f6 !important;
+//   }
+
+//   & tr:not([class]) {
+//     border: 1px solid #f6f6f6 !important;
+//   }
+
+//   & .row_header td {
+//     padding-bottom: 17px !important;
+//     font-size: 15px !important;
+//     font-weight: 700 !important;
+//     line-height: 15px !important;
+//   }
+
+
+//   & .cell_name {
+//     width: 735px !important;
+//     padding: 11px 0 !important;
+//     padding-bottom: 15px !important;
+//     font-size: 15px !important;
+//     line-height: 15px !important;
+//   }
+
+//   & .cell_value {
+//     padding: 11px 0 !important;
+//     padding-bottom: 15px !important;
+//     font-size: 15px !important;
+//     line-height: 15px !important;
+//   }
+
+//   & .row_empty td {
+//     padding-bottom: 36px !important;
+//   }
+
+
+// }
+
+
+// .detailed-tabs__description {
+//   flex-direction: column;
+// }
+
+
+// .detailed-tabs-list {
+//   border: 1px solid #f6f6f6;
+// }
+
+// .detailed-tabs-list__item {
+//   display: flex;
+//   margin-bottom: 0;
+//   padding: 9px 33px;
+//   background-color: #f6f6f6;
+
+//   &:nth-child(2n) {
+//     background-color: transparent;
+//   }
+
+//   & p {
+//     font-size: 15px;
+//   }
+// }
+
+// .detailed-tabs-list__item-name {
+//   flex-basis: 730px;
+// }
+
+// .detailed-tabs-list__item-value {
+//   width: 350px;
+// }
+
+// .detailed-tabs__content {
+//   &.detailed-tabs__options {
+//     padding-bottom: 31px;
+//   }
+// }
+
+// .detailed-tabs__options {
+//   flex-direction: column;
+// }
+
+
+
+// .detailed-tabs__options-sort {
+//   margin-bottom: 24px;
+
+//   &:last-child {
+//     margin-bottom: 0;
+//   }
+
+//   & .detailed-tabs__options-sort-title {
+//     margin-bottom: 15px;
+//     font-size: 15px;
+//     font-weight: 700;
+//     line-height: 15px;
+//   }
+// }
+
+// .detailed-tabs__delivery {
+//   flex-direction: row;
+// }
+
+// .detailed-tabs__delivery-detail {
+//   flex-basis: 280px;
+//   flex-shrink: 0;
+//   flex-grow: 1;
+//   margin-right: 10px;
+// }
+
+// .detailed-tabs__delivery-region {
+//   margin-bottom: 29px;
+
+//   & .detailed-tabs__delivery-title {
+//     margin-bottom: 9px;
+//     font-size: 15px;
+//     font-weight: 700;
+//     line-height: 15px;
+//   }
+
+//   & .detailed-tabs__delivery-description {
+//     margin-bottom: 2px;
+//     font-size: 14px;
+//   }
+
+//   & .detailed-tabs__delivery-change {
+//     font-size: 12px;
+//     color: #fb0040;
+//     text-decoration: underline;
+//   }
+// }
+
+// .detailed-tabs__delivery-pay {
+//   margin-bottom: 40px;
+
+//   & .detailed-tabs__delivery-title {
+//     margin-bottom: 16px;
+//     font-size: 15px;
+//     font-weight: 700;
+//   }
+// }
+
+// .detailed-tabs__delivery-pay-img {
+//   & img {
+//     margin-right: 13px;
+
+//     &:last-child {
+//       margin-right: 0;
+//     }
+//   }
+// }
+
+// .detailed-tabs__delivery-box {
+//   width: 280px;
+//   padding: 29px 20px;
+//   padding-bottom: 15px;
+//   background-color: #f7f7f7;
+
+//   & .detailed-tabs__delivery-title {
+//     position: relative;
+//     margin-bottom: 12px;
+//     padding-left: 31px;
+//     font-size: 15px;
+//     font-weight: 700;
+
+//     &::before {
+//       content: "";
+//       position: absolute;
+//       width: 21px;
+//       height: 22px;
+//       left: 0;
+//       top: 0;
+//       background: url("/local/templates/sotbit_origami/assets/img/tabs_detailed/box-delivery.png") no-repeat;
+//     }
+//   }
+
+//   & .detailed-tabs__delivery-box-item {
+//     margin-bottom: 13px;
+//     color: #717171;
+
+//     & span {
+//       color: #000;
+//       font-weight: 600;
+//     }
+
+//   }
+// }
+
+// .detailed-tabs__delivery-way {
+//   max-width: 740px;
+//   margin-left: auto;
+// }
+
+// .detailed-tabs__delivery-way-item {
+//   margin-bottom: 28px;
+//   padding-left: 0;
+//   padding-bottom: 22px;
+//   border-bottom: 1px solid #ededed;
+// }
+
+// .delivery-way-item {
+//   display: flex;
+// }
+
+// .delivery-way-item__img {
+//   width: 120px;
+//   margin-right: 20px;
+//   padding-bottom: 6px;
+//   flex-shrink: 0;
+// }
+
+// .delivery-way-item__description {
+//   flex-basis: 455px;
+//   & .delivery-way-item__title {
+//     margin-bottom: 8px;
+//     font-size: 14px;
+//     line-height: 14px;
+//     font-weight: 700;
+//   }
+
+//   & .delivery-way-item__time {
+//     margin-bottom: 4px;
+//     font-size: 12px;
+//     color: #8a8989;
+
+//     & span {
+//       color: #000;
+//       font-weight: 600;
+//     }
+//   }
+
+//   & .delivery-way-item__message {
+//     font-size: 12px;
+//     line-height: 24px;
+//   }
+
+//   & .delivery-way-item__price {
+
+//   }
+// }
+
+// .delivery-way-item__price {
+//   width: 147px;
+
+//   & p {
+//     font-size: 17px;
+//     font-weight: 700;
+//     line-height: 17px;
+//     text-align: right;
+//   }
+// }
+
+// //--------------video-------------
+
+// .detailed-tabs__content {
+//   &.detailed-tabs__video {
+//     padding-bottom: 13px;
+//   }
+// }
+
+// .detailed-tabs__video-list {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   margin-left: -5px;
+//   width: 100%;
+// }
+
+// .detailed-tabs__video-item {
+//   flex-basis: 396px;
+//   padding-left: 0px;
+//   margin-left: 5px;
+
+//   & img {
+//     display: block;
+//     width: 100%;
+//   }
+
+//   & .detailed-tabs__video-item-name {
+//     margin-bottom: 5px;
+//     font-size: 14px;
+//     font-weight: 700;
+//   }
+
+//   & .detailed-tabs__video-item-description {
+//     font-size: 13px;
+//     color: #8a8989;
+//   }
+// }
+
+// .detailed-tabs__video-item-video {
+//   margin-bottom: 13px;
+// }
+
+
+
+// //--------------reviews-----------
+// .detailed-tabs__reviews {
+//   flex-direction: column;
+// }
+
+// //---------------document-----------
+// .detailed-tabs__content {
+//   &.detailed-tabs__documents {
+//     padding-bottom: 0;
+//     margin-bottom: -11px;
+//   }
+// }
+
+// .detailed-tabs__documents-list {
+//   display: flex;
+//   flex-wrap: wrap;
+//   margin-bottom: 0;
+// }
+
+// .detailed-tabs__documents-item {
+//   width: 180px;
+//   margin-bottom: 50px;
+//   padding-left: 0;
+// }
+
+// .detailed-tabs__documents-wrapper {
+//   display: flex;
+// }
+
+// .detailed-tabs__documents-img {
+//   margin-right: 17px;
+// }
+
+
+
+// .detailed-tabs__documents-description {
+//   & .detailed-tabs__documents-name {
+//     margin-bottom: 10px;
+//     font-size: 14px;
+//     line-height: 14px;
+//   }
+
+//   & .detailed-tabs__documents-size {
+//     font-size: 14px;
+//     line-height: 14px;
+//     color: #8a8989;
+//   }
+// }
+
+// //-------------------------availability-----------------
+
+// .detailed-tabs__content {
+//   &.detailed-tabs__availability {
+//     padding-bottom: 0;
+//   }
+// }
+
+// .detailed-tabs__availability-list {
+//   display: table;
+// }
+
+// .detailed-tabs__availability-item {
+//   display: table-row;
+//   padding-left: 0;
+
+//   .detailed-tabs__availability-img,
+//   .detailed-tabs__availability-content {
+//     padding-bottom: 30px;
+//     border-bottom: 1px dashed #d0cfcf;
+//   }
+// }
+
+// .detailed-tabs__availability-item:not(:first-child) {
+//   .detailed-tabs__availability-img,
+//   .detailed-tabs__availability-content {
+//     padding-top: 32px;
+//     border-bottom: none;
+//   }
+// }
+// .detailed-tabs__availability-img {
+//   display: table-cell;
+//   padding-left: 0;
+//   width: 72px;
+// }
+
+// .detailed-tabs__availability-content {
+//   display: table-cell;
+//   vertical-align: top;
+// }
+
+// .detailed-tabs__availability-place {
+//   width: 232px;
+//   display: table-cell;
+//   padding-right: 10px;
+
+//   & .detailed-tabs__availability-name {
+//     position: relative;
+//     margin-bottom: 17px;
+//     padding-left: 28px;
+//     font-size: 14px;
+//     line-height: 14px;
+//     font-weight: 700;
+
+//     &:before {
+//       position: absolute;
+//       content: "";
+//       top: 0;
+//       left: 13px;
+//       width: 9px;
+//       height: 12px;
+//       background: url("/local/templates/sotbit_origami/assets/img/tabs_detailed/maps-and-flags.png") no-repeat;
+//     }
+//   }
+
+//   & .detailed-tabs__availability-amount {
+//     padding-left: 28px;
+//     font-size: 13px;
+//     line-height: 13px;
+
+//     & span:last-child {
+//       position: relative;
+//     }
+
+//     & span:last-child::before {
+//       content: "\f00c";
+//       display: inline-block;
+//       width: 15px;
+//       height: 20px;
+//       margin-right: 0;
+//       font-family: "Font Awesome 5 Pro";
+//       font-size: 12px;
+//       font-weight: 900;
+//       color: #28b843;
+//     }
+
+//     & span:first-child {
+//       display: none;
+//     }
+//   }
+// }
+
+// .detailed-tabs__availability-time {
+//   min-width: 120px;
+//   width: 225px;
+//   display: table-cell;
+//   padding-left: 4px;
+
+//   & .detailed-tabs__availability-weekday {
+//     padding-bottom: 6px;
+//     font-size: 12px;
+//     line-height: 12px;
+//   }
+
+//   & .detailed-tabs__availability-weekends {
+//     font-size: 12px;
+//     line-height: 12px;
+//   }
+
+//   & .detailed-tabs__availability-mobile {
+//     display: none;
+//   }
+// }
+
+// .detailed-tabs__availability-metro {
+//   width: 175px;
+//   display: table-cell;
+//   padding-left: 30px;
+
+//   .detailed-tabs__availability-metro-name {
+//     position: relative;
+//     font-size: 12px;
+//     line-height: 12px;
+//     color: #fb0040;
+
+//     &:before {
+//       position: absolute;
+//       content: "";
+//       width: 13px;
+//       height: 10px;
+//       left: -18px;
+//       top: 0;
+//       background: url("/local/templates/sotbit_origami/assets/img/tabs_detailed/moscow-metro-logo.png") no-repeat;
+//       background-size: cover;
+//     }
+//   }
+// }
+
+// .detailed-tabs__availability-address {
+//   display: table-cell;
+//   width: 240px;
+//   padding-left: 13px;
+
+//   .detailed-tabs__availability-address-name {
+//     font-size: 12px;
+//     line-height: 12px;
+//   }
+// }
+
+// .detailed-tabs__availability-email {
+//   display: table-cell;
+//   width: 190px;
+//   padding-left: 18px;
+
+//   .detailed-tabs__availability-email-name {
+//     font-size: 12px;
+//     line-height: 12px;
+//   }
+// }
+
+// .detailed-tabs__availability-phone {
+//   display: table-cell;
+//   min-width: 110px;
+//   padding-left: 19px;
+
+//   .detailed-tabs__availability-phone-item {
+//     padding-bottom: 6px;
+//     font-size: 12px;
+//     line-height: 12px;
+
+//     &:last-child {
+//       padding-bottom: 0;
+//     }
+//   }
+// }
+
+
+
+// @media (max-width: 1200px) {
+//   .detailed-tabs__availability-metro {
+//     display: none;
+//   }
+// }
+
+
+// @media (max-width: 981px) {
+//   .detailed-tabs__availability-email {
+//     display: none;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .detailed-tabs {
+//     border-bottom: 1px solid #ebedee;
+//   }
+//   .detailed-tabs__tabs {
+//     flex-direction: column;
+//     align-items: center;
+//     border: 1px solid #ebedee;
+//   }
+//   .detailed-tabs__tabs-content {
+//     display: none;
+//   }
+
+//   .detailed-tabs__tabs-item {
+//     position: relative;
+//     width: 100%;
+//     text-align: center;
+//     border-bottom: 1px solid #ebedee;
+//     transition: 0.3s;
+
+//     &.active {
+//       color: #fb0040;
+//     }
+
+//     & p::before {
+//       content: "\f078";
+//       position: absolute;
+//       top: 4px;
+//       right: -14px;
+//       margin-right: 28px;
+//       font-family: "Font Awesome 5 Pro";
+//       font-size: 10px;
+//       font-weight: 400;
+//       -webkit-transition: 0.3s;
+//       -o-transition: 0.3s;
+//       transition: 0.3s;
+//     }
+
+//     &.active p::before {
+//       transform: scaleY(-1);
+//     };
+
+
+//     &.active::after {
+//       display: none;
+//     }
+
+//     &:last-child {
+//       border-bottom: none;
+//     }
+//   }
+
+//   .detailed-tabs__reviews {
+//     width: 100%;
+//   }
+
+//   .detailed-tabs__availability {
+//     width: 100%;
+//   }
+
+//   .detailed-tabs__options {
+//     width: 100%;
+//   }
+
+
+//   .detailed-tabs__content {
+//     padding-left: 12px;
+//     padding-right: 12px;
+//     border-bottom: 1px solid #ededed;
+
+//     & p {
+//       font-size: 14px;
+//     }
+//   }
+
+//   .detailed-tabs__delivery {
+//     flex-direction: column;
+//   }
+
+//   .detailed-tabs__delivery-detail {
+//     margin-bottom: 25px;
+//     margin-right: 0;
+//   }
+
+//   .detailed-tabs__delivery-box {
+//     width: 100%;
+//   }
+
+//   .detailed-tabs__availability-item {
+//     display: flex;
+//   }
+
+//   .detailed-tabs__availability-content {
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+//   .detailed-tabs__availability-place {
+//     display: block;
+//     width: auto;
+//   }
+
+//   .detailed-tabs__availability-time {
+//     display: block;
+//     width: auto;
+//   }
+
+//   .detailed-tabs__availability-metro {
+//     display: block;
+//     width: auto;
+//   }
+
+//   .detailed-tabs__availability-address {
+//     display: block;
+//     width: auto;
+//   }
+
+//   .detailed-tabs__availability-email {
+//     display: block;
+//     width: auto;
+//   }
+
+//   .detailed-tabs__availability-phone {
+//     display: block;
+//   }
+
+
+//   .detailed-tabs__availability {
+//     padding-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-content {
+//     position: relative;
+//   }
+
+//   .detailed-tabs__availability-content p {
+//     font-size: 12px;
+//   }
+
+//   .detailed-tabs__availability-time {
+
+//     & .detailed-tabs__availability-weekday {
+//       display: none;
+//     }
+
+//     & .detailed-tabs__availability-weekends {
+//       display: none;
+//     }
+
+//     & .detailed-tabs__availability-mobile {
+//       display: block;
+//     }
+//   }
+
+//   .detailed-tabs__availability-phone-item:not(:last-child) {
+//     display: none;
+//   }
+
+
+//   .detailed-tabs__availability-place .detailed-tabs__availability-amount {
+//     display: flex;
+//     position: absolute;
+//     bottom: 6px;
+//     left: -6px;
+//     font-size: 12px;
+
+//     & span:last-child::before {
+//       position: absolute;
+//       font-size: 9px;
+//       left: -12px;
+//     }
+
+//     & span:first-child {
+//       display: block;
+//       padding-right: 18px;
+//     }
+//   }
+
+//   .detailed-tabs__availability-list {
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+//     margin-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-item {
+//     padding-bottom: 24px;
+//     margin-bottom: 0;
+//     border-bottom: 1px dashed #d0cfcf;
+
+//     &:last-child {
+//       border-bottom: none;
+//     }
+
+//     & .detailed-tabs__availability-img,
+//     & .detailed-tabs__availability-content {
+//       border: none;
+//     }
+//   }
+
+//   .detailed-tabs__availability-item:not(:first-child) {
+//     & .detailed-tabs__availability-img,
+//     & .detailed-tabs__availability-content {
+//       padding-top: 29px;
+//     }
+//   }
+
+//   .detailed-tabs__availability-time {
+//     padding-left: 24px;
+//     margin-bottom: 10px;
+//   }
+
+//   .detailed-tabs__availability-metro {
+//     padding-left: 42px;
+//     margin-bottom: 9px;
+//   }
+
+//   .detailed-tabs__availability-address {
+//     padding-left: 24px;
+//     margin-bottom: 9px;
+//   }
+
+//   .detailed-tabs__availability-email {
+//     padding-left: 24px;
+//     margin-bottom: 12px;
+//   }
+
+//   .detailed-tabs__availability-phone {
+//     padding-left: 23px;
+//   }
+
+// }
+
+
+
+// @media (max-width: 575px) {
+//   .detailed-tabs-list {
+//     border: none;
+//   }
+
+
+//   .detailed-tabs-list__item {
+//     display: block;
+//     margin-bottom: 8px;
+//     padding: 0;
+//     padding-left: 12px;
+//     background-color: transparent !important;
+
+//     & .detailed-tabs-list__item-name {
+//       display: inline;
+//       padding-right: 9px;
+//       color: #717171;
+//     }
+
+//     & .detailed-tabs-list__item-value {
+//       display: inline;
+//       font-weight: 600;
+//     }
+//   }
+
+//   .detailed-tabs__options-sort {
+//     margin-bottom: 15px;
+
+//     &:last-child {
+//       margin-bottom: 0;
+//     }
+//   }
+
+//   .detailed-tabs__options-sort-title {
+//     padding-left: 12px;
+//     padding-right: 12px;
+//   }
+
+//   .detailed-tabs__content {
+//     padding: 30px 12px;
+
+//     &.detailed-tabs__options {
+//       width: 100%;
+//       padding-top: 23px;
+//       padding-bottom: 11px;
+//       padding-left: 0;
+//       padding-right: 0;
+//     }
+
+//     .detailed-tabs__availability-img {
+//       width: 50px;
+
+//       & img {
+//         width: 100%;
+//       }
+//     }
+
+//     .detailed-tabs__availability-name {
+//       padding-left: 24px;
+//       margin-bottom: 0px;
+
+//       &::before {
+//         left: 10px;
+//       }
+//     }
+
+//     &.detailed-tabs__delivery {
+//       padding-top: 38px;
+//       padding-bottom: 2px;
+//       padding-left: 0;
+//       padding-right: 0;
+//     }
+
+//     &.detailed-tabs__video {
+//       padding-top: 39px;
+//       padding-bottom: 5px;
+//     }
+
+//     &.detailed-tabs__documents {
+//       padding-bottom: 11px;
+//     }
+//   }
+
+//   .detailed-tabs__delivery-region {
+//     margin-bottom: 25px;
+//     padding-left: 12px;
+//     padding-right: 12px;
+//   }
+
+//   .detailed-tabs__delivery-pay {
+//     margin-bottom: 31px;
+//     padding-left: 12px;
+//     padding-right: 12px;
+//   }
+
+
+//   .detailed-tabs__delivery-box {
+//     padding: 32px 12px;
+//     padding-bottom: 12px;
+
+//     & p {
+//       font-size: 13px
+//     }
+//   }
+
+//   .delivery-way-item {
+//     display: block;
+//   }
+
+//   .delivery-way-item__price {
+//     display: none;
+//   }
+
+//   .detailed-tabs__delivery-way {
+//     padding-left: 12px;
+//     padding-right: 12px;
+//   }
+
+//   .delivery-way-item__img {
+//     width: 86px;
+//     margin-right: 13px;
+//     float: left;
+//     padding-bottom: 0;
+
+//     & img {
+//       width: 100%;
+//     }
+//   }
+
+//   .delivery-way-item__message {
+//     margin-top: 17px;
+//   }
+
+//   .detailed-tabs__delivery-way-item {
+//     padding-bottom: 16px;
+
+//     &:last-child {
+//       border-bottom: none;
+//       margin-bottom: 0;
+//     }
+//   }
+
+
+//   .detailed-tabs__video-list {
+//     margin-left: 0;
+//     margin-bottom: 0;
+//   }
+
+//   .detailed-tabs__video-item {
+//     margin-left: 0;
+//     margin-bottom: 26px;
+//   }
+
+
+
+//   .detailed-tabs__documents-item {
+//     margin-bottom: 30px;
+
+//     &:last-child {
+//       margin-bottom: 0;
+//     }
+//   }
+
+
+//   .wd_propsorter {
+
+//     & .row_header td {
+//       padding-left: 12px;
+//     }
+
+//     & table tr {
+//       background-color: transparent !important;
+//     }
+
+//     & tr:not([class]) {
+//       border: none;
+//     }
+
+//     & tr:not(.row_header) .cell_name {
+//       width: auto;
+//       padding-left: 12px;
+//       padding-right: 0;
+//       font-size: 14px;
+//       color: #717171;
+//     }
+
+//     & tr:not(.row_header) .cell_value {
+//       width: 100%;
+//       padding-left: 0;
+//       padding-right: 12px;
+//       font-size: 14px;
+//       font-weight: 600;
+//     }
+//   }
+
+
+
+//   .detailed-tabs__availability {
+//     padding-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-content {
+//     position: relative;
+//   }
+
+//   .detailed-tabs__availability-content p {
+//     font-size: 12px;
+//   }
+
+//   .detailed-tabs__availability-time {
+
+//     & .detailed-tabs__availability-weekday {
+//       display: none;
+//     }
+
+//     & .detailed-tabs__availability-weekends {
+//       display: none;
+//     }
+
+//     & .detailed-tabs__availability-mobile {
+//       display: block;
+//     }
+//   }
+
+//   .detailed-tabs__availability-phone-item:not(:last-child) {
+//     display: none;
+//   }
+
+
+//   .detailed-tabs__availability-place .detailed-tabs__availability-amount {
+//     display: flex;
+//     position: absolute;
+//     bottom: -3px;
+//     left: -6px;
+//     font-size: 12px;
+
+//     & span:last-child::before {
+//       position: absolute;
+//       font-size: 9px;
+//       left: -12px;
+//     }
+
+//     & span:first-child {
+//       display: block;
+//       padding-right: 18px;
+//     }
+//   }
+
+//   .detailed-tabs__availability-list {
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+//     margin-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-item {
+//     padding-bottom: 24px;
+//     margin-bottom: 0;
+//     border-bottom: 1px dashed #d0cfcf;
+
+//     &:last-child {
+//       border-bottom: none;
+//     }
+
+//     & .detailed-tabs__availability-img,
+//     & .detailed-tabs__availability-content {
+//       border: none;
+//     }
+//   }
+
+//   .detailed-tabs__availability-item:not(:first-child) {
+//     & .detailed-tabs__availability-img,
+//     & .detailed-tabs__availability-content {
+//       padding-top: 29px;
+//     }
+//   }
+
+
+
+//   .detailed-tabs__availability-time {
+//     padding-left: 24px;
+//     margin-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-metro {
+//     padding-left: 42px;
+//     margin-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-address {
+//     padding-left: 24px;
+//     margin-bottom: 0;
+//   }
+
+//   .detailed-tabs__availability-email {
+//     padding-left: 24px;
+//     margin-bottom: 3px;
+//   }
+
+//   .detailed-tabs__availability-phone {
+//     padding-left: 23px;
+//   }
+
+// }
+
+// .main_info_preview_product {
+
+//     .product-item-detail-slider-image {
+//         max-height: 350px;
+//         max-width: 560px;
+
+//         img {
+//             max-width: 100%;
+//             max-height: 100%;
+//         }
+//     }
+// }
+
