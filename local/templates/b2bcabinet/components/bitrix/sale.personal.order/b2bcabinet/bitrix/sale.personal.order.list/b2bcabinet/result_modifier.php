@@ -118,7 +118,7 @@ foreach ($arResult['ORDERS'] as $arOrder) {
 	$orderStatus = [];
 	if ($arOrder['ORDER']['CANCELED'] == 'Y') {
 		$orderStatus = [
-			"ID" => "cancel",
+			"ID"   => "cancel",
 			"NAME" => $lang['SPOL_PSEUDO_CANCELLED'],
 			"SORT" => 0
 		];
@@ -128,6 +128,7 @@ foreach ($arResult['ORDERS'] as $arOrder) {
 	
 	$arResult['ROWS'][] = [
 		'data'     => array_merge($arOrder['ORDER'], [
+			"DATE"            => $arOrder["ORDER"]["DATE_INSERT"]->toString(),
 			"SHIPMENT_METHOD" => $arResult["INFO"]["DELIVERY"][$arOrder["ORDER"]["DELIVERY_ID"]]["NAME"],
 			"PAYMENT_METHOD"  => $arResult["INFO"]["PAY_SYSTEM"][$arOrder["ORDER"]["PAY_SYSTEM_ID"]]["NAME"],
 			'ITEMS'           => implode('<br>', $items),
@@ -203,19 +204,12 @@ if ($sortData["sort"]) {
 
 
 //Выгрузка в Excel
-if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+if (DialHelper::checkAjax()) {
 	$GLOBALS['APPLICATION']->RestartBuffer();
 	
-	$errMsg = [];
-	$arrLib = [];
-	$arrLib = get_loaded_extensions();
-	if (!in_array('xmlwriter', $arrLib)) {
-		$errMsg['TYPE'] = 'error';
-		$errMsg['MESSAGE'] = GetMessage('BLANK_EXCEL_EXPORT_LIB_ERROR');
-		echo \Bitrix\Main\Web\Json::encode($errMsg);
-	} else {
-		$header = \Bitrix\Main\Context::getCurrent()->getRequest()->getPostList()->getValues();
-			print_r($header);
-	}
+	$header = \Bitrix\Main\Context::getCurrent()->getRequest()->getPostList()->getValues();
+	$helper = new DialHelper();
+	$helper->export2Excel($header, $arResult["ROWS"], "Список заказов");
+	
 	die();
 }

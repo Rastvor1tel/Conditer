@@ -12,8 +12,8 @@ use Bitrix\Main\Localization\Loc;
  * @var array $arCurSection
  */
 
-$orgArray = bildOrganizationList();
-checkActiveOrganization($orgArray);
+$orgArray = DialHelper::bildOrganizationList();
+DialHelper::checkActiveOrganization($orgArray);
 
 $arAvailableSort = [
 	"name_0"    => ["name", "desc"],

@@ -17,52 +17,64 @@
 	<? endif ?>
 
 	<div class="personal_list_order">
-		<div class="main-ui-filter-search-wrapper">
-			<?
-			$APPLICATION->IncludeComponent(
-				"bitrix:main.ui.filter",
-				"b2bcabinet",
-				[
-					"FILTER_ID"          => "PRODUCT_LIST",
-					"GRID_ID"            => "PRODUCT_LIST",
-					"FILTER"             => [
-						[
-							"id"   => "DATE_INSERT",
-							"name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'),
-							"type"  => "date",
-						], [
-							"id"   => "STATUS",
-							"name" => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'),
-							"type"   => "list",
-							"items"  => $arResult["STATUS"],
-							"params" => [
-								"multiple" => "Y"
+		<div class="order-control">
+			<div class="main-ui-filter-search-wrapper">
+				<?
+				$APPLICATION->IncludeComponent(
+					"bitrix:main.ui.filter",
+					"b2bcabinet",
+					[
+						"FILTER_ID"          => "PRODUCT_LIST",
+						"GRID_ID"            => "PRODUCT_LIST",
+						"FILTER"             => [
+							[
+								"id"   => "DATE_INSERT",
+								"name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'),
+								"type" => "date",
+							], [
+								"id"     => "STATUS",
+								"name"   => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'),
+								"type"   => "list",
+								"items"  => $arResult["STATUS"],
+								"params" => [
+									"multiple" => "Y"
+								],
+							], [
+								"id"     => "BUYER_ID",
+								"name"   => GetMessage("SPOL_ORDER_FIELD_NAME_BUYER"),
+								"type"   => "list",
+								"params" => [
+									"multiple" => "Y"
+								],
+								"items"  => $arResult["BUYERS"]
+							], [
+								"id"     => "ID",
+								"name"   => GetMessage("NAME"),
+								"type"   => "list",
+								"params" => [
+									"multiple" => "Y"
+								],
+								"items"  => $arResult["PRODUCTS"]
 							],
-						], [
-							"id"    => "BUYER_ID",
-							"name"  => GetMessage("SPOL_ORDER_FIELD_NAME_BUYER"),
-							"type"  => "list",
-							"params" => [
-								"multiple" => "Y"
-							],
-							"items" => $arResult["BUYERS"]
-						], [
-							"id"    => "ID",
-							"name"  => GetMessage("NAME"),
-							"type"  => "list",
-							"params" => [
-								"multiple" => "Y"
-							],
-							"items" => $arResult["PRODUCTS"]
 						],
+						"ENABLE_LIVE_SEARCH" => true,
+						"ENABLE_LABEL"       => true,
+						"COMPONENT_TEMPLATE" => "b2bcabinet"
 					],
-					"ENABLE_LIVE_SEARCH" => true,
-					"ENABLE_LABEL"       => true,
-					"COMPONENT_TEMPLATE" => "b2bcabinet"
-				],
-				false
-			);
-			?>
+					false
+				);
+				?>
+			</div>
+			<div class="card-body">
+				<div class="card-excel-button">
+					<button type="button" class="btn btn-light btn-ladda btn-ladda-spinner" data-spinner-color="#333" data-style="slide-right" id="blank-export-in-excel">
+	                    <span class="ladda-label export_excel_preloader">
+	                        <i class="icon-upload mr-2"></i>
+	                        Выгрузить в Excel
+	                    </span>
+					</button>
+				</div>
+			</div>
 		</div>
 		<?
 		$APPLICATION->IncludeComponent(

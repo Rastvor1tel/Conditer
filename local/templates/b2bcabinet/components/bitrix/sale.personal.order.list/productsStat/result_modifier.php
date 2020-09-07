@@ -229,3 +229,14 @@ if ($sortData["sort"]) {
 	$fieldDirection = current($sortData["sort"]);
 	usort($arResult["ROWS"], "sort{$fieldName}{$fieldDirection}");
 }
+
+//Выгрузка в Excel
+if (DialHelper::checkAjax()) {
+	$GLOBALS['APPLICATION']->RestartBuffer();
+	
+	$header = \Bitrix\Main\Context::getCurrent()->getRequest()->getPostList()->getValues();
+	$helper = new DialHelper();
+	$helper->export2Excel($header, $arResult["ROWS"], "Список заказанных товаров");
+	
+	die();
+}

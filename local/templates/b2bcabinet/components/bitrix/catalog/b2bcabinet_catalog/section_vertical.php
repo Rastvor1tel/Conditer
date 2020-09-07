@@ -14,8 +14,8 @@ use Bitrix\Main\Localization\Loc;
  * @var array $arCurSection
  */
 
-$orgArray = bildOrganizationList();
-checkActiveOrganization($orgArray);
+$orgArray = DialHelper::bildOrganizationList();
+DialHelper::checkActiveOrganization($orgArray);
 
 //unset($_SESSION['PRICE_ID'], $_SESSION['ORGANIZATION_ID']);
 

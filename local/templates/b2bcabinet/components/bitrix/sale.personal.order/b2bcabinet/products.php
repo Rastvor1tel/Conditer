@@ -42,4 +42,7 @@ $arChildParams = [
 ];
 
 $APPLICATION->IncludeComponent("bitrix:sale.personal.order.list", "productsStat", $arChildParams, $component);
+
+$APPLICATION->SetTitle("Статистика по товарам");
+$APPLICATION->AddChainItem("Статистика по товарам");
 ?>
