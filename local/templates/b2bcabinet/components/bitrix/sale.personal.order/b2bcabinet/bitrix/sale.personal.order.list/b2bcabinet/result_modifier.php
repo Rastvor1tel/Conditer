@@ -3,14 +3,6 @@
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Localization\Loc;
 
-$compareItemsArray = function ($a, $b) {
-	if ($a === $b["ID"]) {
-		return 0;
-	}
-	if ($a > $b["ID"]) return 1;
-	return -1;
-};
-
 $lang = [
 	"SPOL_PSEUDO_CANCELLED" => Loc::GetMessage('SPOL_PSEUDO_CANCELLED'),
 	"MEASURE_TEXT"          => Loc::GetMessage("MEASURE_TEXT")
@@ -100,6 +92,16 @@ if ($buyers) {
 	}
 }
 
+$arResult['INFO']['STATUS'] = array_map(fn($item) => CSaleStatus::GetByID($item["ID"]), $arResult['INFO']['STATUS']);
+
+$arResult["STATUS"] = [
+	"cancel" => $lang['SPOL_PSEUDO_CANCELLED']
+];
+foreach ($arResult['INFO']['STATUS'] as $arStatus) {
+	$arResult["STATUS"][$arStatus["ID"]] = $arStatus["NAME"];
+}
+
+
 foreach ($arResult['ORDERS'] as $arOrder) {
 	$aActions = [
 		["ICONCLASS" => "detail", "TEXT" => GetMessage('SPOL_MORE_ABOUT_ORDER'), "ONCLICK" => "jsUtils.Redirect(arguments, '" . $arOrder['ORDER']["URL_TO_DETAIL"] . "')", "DEFAULT" => true]
@@ -113,13 +115,25 @@ foreach ($arResult['ORDERS'] as $arOrder) {
 		"PRICE"    => $item["PRICE"]
 	], $arOrder['BASKET_ITEMS']);
 	
+	$orderStatus = [];
+	if ($arOrder['ORDER']['CANCELED'] == 'Y') {
+		$orderStatus = [
+			"ID" => "cancel",
+			"NAME" => $lang['SPOL_PSEUDO_CANCELLED'],
+			"SORT" => 0
+		];
+	} else {
+		$orderStatus = $arResult['INFO']['STATUS'][$arOrder['ORDER']['STATUS_ID']];
+	}
+	
 	$arResult['ROWS'][] = [
 		'data'     => array_merge($arOrder['ORDER'], [
 			"SHIPMENT_METHOD" => $arResult["INFO"]["DELIVERY"][$arOrder["ORDER"]["DELIVERY_ID"]]["NAME"],
 			"PAYMENT_METHOD"  => $arResult["INFO"]["PAY_SYSTEM"][$arOrder["ORDER"]["PAY_SYSTEM_ID"]]["NAME"],
 			'ITEMS'           => implode('<br>', $items),
 			'ITEMS_DATA'      => $itemsData,
-			'STATUS'          => ($arOrder['ORDER']['CANCELED'] == 'Y' ? $lang['SPOL_PSEUDO_CANCELLED'] : $arResult['INFO']['STATUS'][$arOrder['ORDER']['STATUS_ID']]['NAME']),
+			'STATUS_NAME'     => $orderStatus["NAME"],
+			'STATUS'          => $orderStatus,
 			'PAYED'           => GetMessage('SPOL_' . ($arOrder["ORDER"]["PAYED"] == "Y" ? 'YES' : 'NO')),
 			'PAY_SYSTEM_ID'   => $arOrder["ORDER"]["PAY_SYSTEM_ID"],
 			'DELIVERY_ID'     => $arOrder["ORDER"]["DELIVERY_ID"],
@@ -135,11 +149,15 @@ $filterOption = new Bitrix\Main\UI\Filter\Options('ORDER_LIST');
 $filterData = $filterOption->getFilter([]);
 
 if ($filterData) {
-	$filterRows = function ($item) use ($filterData, $compareItemsArray) {
+	$filterRows = function ($item) use ($filterData) {
 		if ($filterData["ID"] && ($item["data"]["ID"] != $filterData["ID"])) return false;
 		
 		if ($filterData["BUYER_ID"]) {
 			if (!in_array($item["data"]["BUYER_ID"], $filterData["BUYER_ID"])) return false;
+		}
+		
+		if ($filterData["STATUS"]) {
+			if (!in_array($item["data"]["STATUS"]["ID"], $filterData["STATUS"])) return false;
 		}
 		
 		if ($filterData["PRICE_from"]) {
@@ -171,4 +189,33 @@ if ($filterData) {
 	};
 	
 	$arResult["ROWS"] = array_filter($arResult["ROWS"], $filterRows);
+}
+
+$gridOptions = new Bitrix\Main\Grid\Options('ORDER_LIST');
+$sortData = $gridOptions->GetSorting([]);
+
+if ($sortData["sort"]) {
+	require_once("{$_SERVER["DOCUMENT_ROOT"]}{$this->GetFolder()}/sortFunctions.php");
+	$fieldName = key($sortData["sort"]);
+	$fieldDirection = current($sortData["sort"]);
+	usort($arResult["ROWS"], "sort{$fieldName}{$fieldDirection}");
+}
+
+
+//Выгрузка в Excel
+if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	$GLOBALS['APPLICATION']->RestartBuffer();
+	
+	$errMsg = [];
+	$arrLib = [];
+	$arrLib = get_loaded_extensions();
+	if (!in_array('xmlwriter', $arrLib)) {
+		$errMsg['TYPE'] = 'error';
+		$errMsg['MESSAGE'] = GetMessage('BLANK_EXCEL_EXPORT_LIB_ERROR');
+		echo \Bitrix\Main\Web\Json::encode($errMsg);
+	} else {
+		$header = \Bitrix\Main\Context::getCurrent()->getRequest()->getPostList()->getValues();
+			print_r($header);
+	}
+	die();
 }

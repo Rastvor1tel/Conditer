@@ -35,8 +35,13 @@
 								"name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'),
 								"type" => "date",
 							], [
-								"id"   => "STATUS",
-								"name" => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS')
+								"id"     => "STATUS",
+								"name"   => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'),
+								"type"   => "list",
+								"items"  => $arResult["STATUS"],
+								"params" => [
+									"multiple" => "Y"
+								],
 							], [
 								"id"   => "PRICE",
 								"name" => GetMessage('SPOL_ORDER_FIELD_NAME_FORMATED_PRICE'),
@@ -68,20 +73,15 @@
 				?>
 			</div>
 			<div class="card-body">
-				<a href="/orders/products/">Статистика по товарам.</a>
-				<? /*<div class="card-excel-button">
-					<button type="button"
-						class="btn btn-light btn-ladda btn-ladda-spinner"
-						data-spinner-color="#333"
-						data-style="slide-right"
-						id="blank-export-in-excel"
-					>
+				<div class="card-excel-button">
+					<button type="button" class="btn btn-light btn-ladda btn-ladda-spinner" data-spinner-color="#333" data-style="slide-right" id="blank-export-in-excel">
 	                    <span class="ladda-label export_excel_preloader">
 	                        <i class="icon-upload mr-2"></i>
 	                        Выгрузить в Excel
 	                    </span>
 					</button>
-				</div>*/ ?>
+				</div>
+				<a class="btn btn-light" href="/orders/products/">Статистика по товарам.</a>
 			</div>
 		</div>
 		<?
@@ -92,8 +92,8 @@
 				'GRID_ID'            => 'ORDER_LIST',
 				'HEADERS'            => [
 					["id" => "ID", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_ID'), "sort" => "ID", "default" => true, "editable" => false],
-					["id" => "DATE_INSERT", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'), "sort" => "DATE_INSERT", "default" => true, "editable" => false],
-					["id" => "STATUS", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'), "sort" => "STATUS", "default" => true, "editable" => true],
+					["id" => "DATE_INSERT", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'), "sort" => "DATE", "default" => true, "editable" => false],
+					["id" => "STATUS_NAME", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'), "sort" => "STATUS", "default" => true, "editable" => true],
 					["id" => "FORMATED_PRICE", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_FORMATED_PRICE'), "default" => true, "sort" => "PRICE"],
 					["id" => "PAYED", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_PAYED'), "sort" => "PAYED"],
 					["id" => "PAYMENT_METHOD", "name" => GetMessage('B2B_SPOL_ORDER_FIELD_NAME_PAYMENT_METHOD'), "sort" => "PAY_SYSTEM_ID"],

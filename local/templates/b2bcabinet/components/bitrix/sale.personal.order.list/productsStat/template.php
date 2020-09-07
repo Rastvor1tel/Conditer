@@ -31,6 +31,14 @@
 							"name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'),
 							"type"  => "date",
 						], [
+							"id"   => "STATUS",
+							"name" => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'),
+							"type"   => "list",
+							"items"  => $arResult["STATUS"],
+							"params" => [
+								"multiple" => "Y"
+							],
+						], [
 							"id"    => "BUYER_ID",
 							"name"  => GetMessage("SPOL_ORDER_FIELD_NAME_BUYER"),
 							"type"  => "list",

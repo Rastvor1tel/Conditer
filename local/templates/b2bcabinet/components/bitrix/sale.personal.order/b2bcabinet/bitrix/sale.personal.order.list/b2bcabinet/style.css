@@ -55,5 +55,6 @@ table.sale_personal_order_list_table {
     justify-content: space-between;
 }
 .order-control .card-body {
+    display: flex;
     flex-grow: unset;
 }

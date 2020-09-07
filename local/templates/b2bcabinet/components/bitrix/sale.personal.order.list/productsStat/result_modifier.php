@@ -85,6 +85,16 @@ if ($buyers) {
 	}
 }
 
+$arResult['INFO']['STATUS'] = array_map(fn($item) => CSaleStatus::GetByID($item["ID"]), $arResult['INFO']['STATUS']);
+
+$arResult["STATUS"] = [
+	"cancel" => $lang['SPOL_PSEUDO_CANCELLED']
+];
+foreach ($arResult['INFO']['STATUS'] as $arStatus) {
+	$arResult["STATUS"][$arStatus["ID"]] = $arStatus["NAME"];
+}
+
+
 foreach ($arResult['ORDERS'] as $arOrder) {
 	$aActions = [
 		["ICONCLASS" => "detail", "TEXT" => GetMessage('SPOL_MORE_ABOUT_ORDER'), "ONCLICK" => "jsUtils.Redirect(arguments, '" . $arOrder['ORDER']["URL_TO_DETAIL"] . "')", "DEFAULT" => true]
@@ -99,13 +109,25 @@ foreach ($arResult['ORDERS'] as $arOrder) {
 		"PRICE"    => $item["PRICE"]
 	], $arOrder['BASKET_ITEMS']);
 	
+	$orderStatus = [];
+	if ($arOrder['ORDER']['CANCELED'] == 'Y') {
+		$orderStatus = [
+			"ID" => "cancel",
+			"NAME" => $lang['SPOL_PSEUDO_CANCELLED'],
+			"SORT" => 0
+		];
+	} else {
+		$orderStatus = $arResult['INFO']['STATUS'][$arOrder['ORDER']['STATUS_ID']];
+	}
+	
 	$arResult['ROWS'][] = [
 		'data'     => array_merge($arOrder['ORDER'], [
 			"SHIPMENT_METHOD" => $arResult["INFO"]["DELIVERY"][$arOrder["ORDER"]["DELIVERY_ID"]]["NAME"],
 			"PAYMENT_METHOD"  => $arResult["INFO"]["PAY_SYSTEM"][$arOrder["ORDER"]["PAY_SYSTEM_ID"]]["NAME"],
 			'ITEMS'           => implode('<br>', $items),
 			'ITEMS_DATA'      => $itemsData,
-			'STATUS'          => ($arOrder['ORDER']['CANCELED'] == 'Y' ? $lang['SPOL_PSEUDO_CANCELLED'] : $arResult['INFO']['STATUS'][$arOrder['ORDER']['STATUS_ID']]['NAME']),
+			'STATUS_NAME'     => $orderStatus["NAME"],
+			'STATUS'          => $orderStatus,
 			'PAYED'           => GetMessage('SPOL_' . ($arOrder["ORDER"]["PAYED"] == "Y" ? 'YES' : 'NO')),
 			'PAY_SYSTEM_ID'   => $arOrder["ORDER"]["PAY_SYSTEM_ID"],
 			'DELIVERY_ID'     => $arOrder["ORDER"]["DELIVERY_ID"],
@@ -121,10 +143,13 @@ $filterOption = new Bitrix\Main\UI\Filter\Options('PRODUCT_LIST');
 $filterData = $filterOption->getFilter([]);
 
 if ($filterData) {
-	print_r($filterData);
 	$filterRows = function ($item) use ($filterData, $compareItemsArray) {
 		if ($filterData["BUYER_ID"]) {
 			if (!in_array($item["data"]["BUYER_ID"], $filterData["BUYER_ID"])) return false;
+		}
+		
+		if ($filterData["STATUS"]) {
+			if (!in_array($item["data"]["STATUS"]["ID"], $filterData["STATUS"])) return false;
 		}
 		
 		if ($filterData["DATE_INSERT_datesel"]) {
@@ -152,7 +177,6 @@ if ($filterData) {
 }
 
 
-
 $products = [];
 
 array_walk($arResult['ROWS'], function ($row) use (&$products) {
@@ -175,12 +199,12 @@ foreach ($arResult["ROWS"] as $arRow) {
 				"editable" => false,
 			];
 			$itemRows[$arItem["ID"]]["data"] = $arItem;
-			$itemRows[$arItem["ID"]]["data"] ["PRICE"] = $arItem["QUANTITY"] * $arItem["PRICE"];
-			$itemRows[$arItem["ID"]]["data"] ["FORMATED_PRICE"] = CCurrencyLang::CurrencyFormat($itemRows[$arItem["ID"]]["data"] ["PRICE"], "RUB");
+			$itemRows[$arItem["ID"]]["data"]["PRICE"] = $arItem["QUANTITY"] * $arItem["PRICE"];
+			$itemRows[$arItem["ID"]]["data"]["FORMATED_PRICE"] = CCurrencyLang::CurrencyFormat($itemRows[$arItem["ID"]]["data"] ["PRICE"], "RUB");
 		} else {
-			$itemRows[$arItem["ID"]]["data"] ["QUANTITY"] += $arItem["QUANTITY"];
-			$itemRows[$arItem["ID"]]["data"] ["PRICE"] += $arItem["QUANTITY"] * $arItem["PRICE"];
-			$itemRows[$arItem["ID"]]["data"] ["FORMATED_PRICE"] = CCurrencyLang::CurrencyFormat($itemRows[$arItem["ID"]]["data"] ["PRICE"], "RUB");
+			$itemRows[$arItem["ID"]]["data"]["QUANTITY"] += $arItem["QUANTITY"];
+			$itemRows[$arItem["ID"]]["data"]["PRICE"] += $arItem["QUANTITY"] * $arItem["PRICE"];
+			$itemRows[$arItem["ID"]]["data"]["FORMATED_PRICE"] = CCurrencyLang::CurrencyFormat($itemRows[$arItem["ID"]]["data"] ["PRICE"], "RUB");
 		}
 	}
 }
@@ -190,18 +214,18 @@ $arResult["ROWS"] = $itemRows;
 if ($filterData) {
 	$filterRows = function ($item) use ($filterData, $compareItemsArray) {
 		if ($filterData["ID"] && ($item["data"]["ID"] != $filterData["ID"])) return false;
-		
 		return true;
 	};
 	
 	$arResult["ROWS"] = array_filter($arResult["ROWS"], $filterRows);
 }
 
-/*$gridOptions = new Bitrix\Main\Grid\Options('PRODUCT_LIST');
+$gridOptions = new Bitrix\Main\Grid\Options('PRODUCT_LIST');
 $sortData = $gridOptions->GetSorting([]);
 
-print_r($sortData);
-
 if ($sortData["sort"]) {
-	usort($sortData);
-}*/
+	require_once("{$_SERVER["DOCUMENT_ROOT"]}{$this->GetFolder()}/sortFunctions.php");
+	$fieldName = key($sortData["sort"]);
+	$fieldDirection = current($sortData["sort"]);
+	usort($arResult["ROWS"], "sort{$fieldName}{$fieldDirection}");
+}
