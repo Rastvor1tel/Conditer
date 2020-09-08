@@ -37,7 +37,7 @@ $APPLICATION->IncludeComponent("bitrix:sale.basket.basket",
 			7 => "QUANTITY",
 			8 => "SUM",
 		],
-
+		
 		"COLUMNS_LIST_MOBILE"           => [
 			0 => "PREVIEW_PICTURE",
 			1 => "DISCOUNT",

@@ -92,9 +92,12 @@ if (empty($arResult['ERROR_MESSAGE']) && !empty($arResult['ITEMS']['AnDelCanBuy'
                 <div class="card-header header-elements-inline">
                     <h5 class="card-title"><?=Loc::getMessage('SBB_BASKET_TITLE')?></h5>
                     <div class="header-elements">
+	                    <div class="card-body">
+		                    <span class="btn btn-light save-preset-order">Сохранить как шаблон</span>
+	                    </div>
                         <div class="list-icons">
                             <a class="list-icons-item" data-action="collapse"></a>
-                            <!--<a class="list-icons-item" data-action="reload"></a>-->
+                            <a class="list-icons-item" data-action="reload"></a>
                         </div>
                     </div>
                 </div>
