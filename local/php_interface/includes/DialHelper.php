@@ -16,6 +16,14 @@ class DialHelper {
 					}
 				}
 			}
+		} elseif ($_SESSION['ORGANIZATION_ID'] != $_COOKIE['ORGANIZATION_ID']) {
+			foreach ($arOrganizations as $arItem) {
+				if ($arItem['ID'] == $_COOKIE['ORGANIZATION_ID']) {
+					$_SESSION['PRICE_ID'] = $arItem['PRICE'];
+					$_SESSION['ORGANIZATION_ID'] = $arItem['ID'];
+					setcookie("ORGANIZATION_ID", $arItem['ID'], time() + 3600, "/");
+				}
+			}
 		}
 	}
 	
