@@ -14,7 +14,7 @@ $buildOrderRow = function ($item) {
 		"actions" => [
 			[
 				"text"    => "Заказать",
-				"onclick" => "#"
+				"onclick" => "add2basket({$item["ID"]});"
 			], [
 				"text"    => "Удалить",
 				"onclick" => "deleteItem({$item["ID"]});"
