@@ -24,7 +24,11 @@ class DialHelper {
 					setcookie("ORGANIZATION_ID", $arItem['ID'], time() + 3600, "/");
 				}
 			}
-		}
+		}/* elseif (!$_COOKIE['ORGANIZATION_ID'] || !$_SESSION['ORGANIZATION_ID']) {
+			$_SESSION['PRICE_ID'] = $arOrganizations[0]['PRICE'];
+			$_SESSION['ORGANIZATION_ID'] = $arOrganizations[0]['ID'];
+			setcookie("ORGANIZATION_ID", $arOrganizations[0]['ID'], time() + 3600, "/");
+		}*/
 	}
 	
 	static public function bildOrganizationList() {
