@@ -1,21 +1,59 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 
-$APPLICATION->IncludeComponent("dial:sale.export.1c", "", Array(
-        "SITE_LIST" => COption::GetOptionString("sale", "1C_SALE_SITE_LIST", ""),
-        "EXPORT_PAYED_ORDERS" => COption::GetOptionString("sale", "1C_EXPORT_PAYED_ORDERS", ""),
-        "EXPORT_ALLOW_DELIVERY_ORDERS" => COption::GetOptionString("sale", "1C_EXPORT_ALLOW_DELIVERY_ORDERS", ""),
-        "EXPORT_FINAL_ORDERS" => COption::GetOptionString("sale", "1C_EXPORT_FINAL_ORDERS", ""),
-        "CHANGE_STATUS_FROM_1C" => COption::GetOptionString("sale", "1C_CHANGE_STATUS_FROM_1C", ""),
-        "FINAL_STATUS_ON_DELIVERY" => COption::GetOptionString("sale", "1C_FINAL_STATUS_ON_DELIVERY", "F"),
-        "REPLACE_CURRENCY" => COption::GetOptionString("sale", "1C_REPLACE_CURRENCY", ""),
-        "GROUP_PERMISSIONS" => explode(",", COption::GetOptionString("sale", "1C_SALE_GROUP_PERMISSIONS", "1")),
-        "USE_ZIP" => COption::GetOptionString("sale", "1C_SALE_USE_ZIP", "Y"),
-        "INTERVAL" => COption::GetOptionString("sale", "1C_INTERVAL", 30),
-        "FILE_SIZE_LIMIT" => COption::GetOptionString("sale", "1C_FILE_SIZE_LIMIT", 200*1024),
-        "SITE_NEW_ORDERS" => COption::GetOptionString("sale", "1C_SITE_NEW_ORDERS", "s1"),
-        "IMPORT_NEW_ORDERS" => COption::GetOptionString("sale", "1C_IMPORT_NEW_ORDERS", "N"),
-    )
-);
+$userID = "";
+$arOrganization = [];
+$elementIDs = [];
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+$arOrderParams = [
+	"Email"       => "test@b2b.ru",
+	"Название"    => "Тестовый заказ",
+	"Организация" => "d866ff4a-4ac4-11e4-8846-005056a18c1e"
+];
+$userFilter = [
+	"EMAIL" => $arOrderParams["Email"]
+];
+$arUser = CUser::GetList(($by = "id"), ($order = "asc"), $userFilter)->Fetch();
+$userID = $arUser['ID'];
+
+$arUserProfile = (new CSaleOrderUserProps)->GetList([], ["XML_ID"  => $arOrderParams['Организация'], "USER_ID" => $userID])->Fetch();
+$arOrganization["ID"] = $arUserProfile['ID'];
+$rsUserProfileValue = (new CSaleOrderUserPropsValue)->GetList(["ID" => "ASC"], ["USER_PROPS_ID" => $arUserProfile['ID']]);
+while ($arUserProfileValue = $rsUserProfileValue->Fetch()) {
+	if ($arUserProfileValue['PROP_ID'] == 14) {
+		$arOrganization["NAME"] = str_replace('"', "'", $arUserProfileValue["VALUE"]);
+	}
+	if ($arUserProfileValue['PROP_ID'] == 27) {
+		$arOrganization["PRICE"] = $arUserProfileValue['VALUE'];
+	}
+}
+
+$itemPropsPrice = [
+	"ВнешнийКод" => "55ccdec4-7c69-11e4-814e-005056a18c1e"
+];
+
+$elementXmlID = "{$itemPropsPrice["ВнешнийКод"]}_{$arOrganization["PRICE"]}";
+$obImport = new CIBlockCMLImport();
+$elementIDs[] = $obImport->GetElementByXML_ID(3, $elementXmlID);
+
+
+
+$arFields = [
+	"MODIFIED_BY"       => $userID,
+	"IBLOCK_SECTION_ID" => false,
+	"IBLOCK_ID"         => 6,
+	"PROPERTY_VALUES"   => [
+		"USER"              => $userID,
+		"ORGANIZATION_ID"   => $arOrganization["ID"],
+		"ORGANIZATION_NAME" => $arOrganization["NAME"],
+		"PRODUCTS"          => $elementIDs
+	],
+	"NAME"              => $arOrderParams["Название"],
+	"ACTIVE"            => "Y",
+];
+
+echo "<pre>";
+print_r($arFields);
+echo "</pre>";
+
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

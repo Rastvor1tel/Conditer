@@ -2,7 +2,7 @@
 
 $MESS["ID"] = "ID";
 $MESS["NAME"] = "Товар";
-$MESS["PRICE"] = "Сумма";
+$MESS["PRICE"] = "Сумма, руб";
 $MESS["QUANTITY"] = "Количество";
 
 $MESS["SPOL_CUR_ORDERS"] = "Посмотреть текущие заказы";

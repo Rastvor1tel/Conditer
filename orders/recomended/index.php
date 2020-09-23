@@ -24,6 +24,7 @@ $APPLICATION->IncludeComponent(
 			1 => "ORGANIZATION_ID",
 			2 => "USER",
 			3 => "PRODUCTS",
+			4 => "NOT_DELETED",
 		],
 		"CHECK_DATES"                     => "Y",
 		"DETAIL_URL"                      => "",

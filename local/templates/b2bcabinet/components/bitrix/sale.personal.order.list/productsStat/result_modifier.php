@@ -199,11 +199,11 @@ foreach ($arResult["ROWS"] as $arRow) {
 				"editable" => false,
 			];
 			$itemRows[$arItem["ID"]]["data"] = $arItem;
-			$itemRows[$arItem["ID"]]["data"]["PRICE"] = $arItem["QUANTITY"] * $arItem["PRICE"];
+			$itemRows[$arItem["ID"]]["data"]["PRICE"] = (float)$arItem["QUANTITY"] * $arItem["PRICE"];
 			$itemRows[$arItem["ID"]]["data"]["FORMATED_PRICE"] = CCurrencyLang::CurrencyFormat($itemRows[$arItem["ID"]]["data"] ["PRICE"], "RUB");
 		} else {
-			$itemRows[$arItem["ID"]]["data"]["QUANTITY"] += $arItem["QUANTITY"];
-			$itemRows[$arItem["ID"]]["data"]["PRICE"] += $arItem["QUANTITY"] * $arItem["PRICE"];
+			$itemRows[$arItem["ID"]]["data"]["QUANTITY"] += (int)$arItem["QUANTITY"];
+			$itemRows[$arItem["ID"]]["data"]["PRICE"] += (float)$arItem["QUANTITY"] * $arItem["PRICE"];
 			$itemRows[$arItem["ID"]]["data"]["FORMATED_PRICE"] = CCurrencyLang::CurrencyFormat($itemRows[$arItem["ID"]]["data"] ["PRICE"], "RUB");
 		}
 	}
