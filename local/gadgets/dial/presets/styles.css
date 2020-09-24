@@ -1,0 +1,14 @@
+.preset-container-link {
+    padding: 10px 0px;
+    border-bottom: 1px solid #dadada;
+}
+.preset-edit-link {
+    margin: 15px 0;
+    display: inline-block;
+    color: #6f727c;
+    font-size: 15px;
+    text-decoration: none;
+    padding-bottom: 1px;
+    border-bottom: 1px dotted #6f727c;
+    line-height: 15px;
+}

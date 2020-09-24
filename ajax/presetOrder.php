@@ -50,3 +50,27 @@ if ($action == "add") {
 if ($action == "delete") {
 	CIBlockElement::Delete($request["item"]);
 }
+
+if ($action == "add2basket") {
+	$preset = $action = $request["item"];
+	$basket = new CSaleBasket();
+	$basket->DeleteAll(CSaleBasket::GetBasketUserID());
+	$basketData = [];
+	$rsBasketItems = CIBlockElement::GetList([], ["IBLOCK_ID" => 6, "ID" => $preset], false, false, ["ID", "NAME", "PROPERTY_PRODUCTS", "PROPERTY_ORGANIZATION_ID"]);
+	while ($arBasketItem = $rsBasketItems->Fetch()) {
+		$arItem = CIBlockElement::GetByID($arBasketItem["PROPERTY_PRODUCTS_VALUE"])->Fetch();
+		$arPrice = CPrice::GetBasePrice($arItem["ID"]);
+		$basketData["ITEMS"][] = [
+			"NAME" => $arItem["NAME"],
+			"PRODUCT_ID" => $arPrice["PRODUCT_ID"],
+			"PRICE" => $arPrice["PRICE"],
+			"CURRENCY" => $arPrice["CURRENCY"],
+			"QUANTITY"   => 1,
+			"LID" => SITE_ID
+		];
+		$basketData["ORGANIZATION"] = $arBasketItem["PROPERTY_ORGANIZATION_ID_VALUE"];
+	}
+	array_walk($basketData["ITEMS"], fn($item) => $basket->Add($item));
+	$basketData["QUANTITY"] = count($basketData["ITEMS"]);
+	echo json_encode($basketData);
+}

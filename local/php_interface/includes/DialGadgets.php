@@ -3,6 +3,18 @@
 use Bitrix\Main\Config\Option, Bitrix\Main\Loader, Bitrix\Sale\Order, \Bitrix\Main\Type\DateTime, \Sotbit\Cabinet\Element, Sotbit\Cabinet\Personal\Buyer;
 
 class DialGadgets {
+	public function getRecomendedOrders() {
+		$result = [];
+		$rsItems = CIBlockElement::GetList([], ["IBLOCK_ID" => 6, "ACTIVE" => "Y"], false, false, ["ID", "IBLOCK_ID", "NAME"]);
+		while ($arItem = $rsItems->Fetch()) {
+			$result[] = [
+				"ID" => $arItem["ID"],
+				"NAME" =>$arItem["NAME"]
+			];
+		}
+		return $result;
+	}
+	
     private function getOrders($filter = []) {
         Loader::includeModule('sale');
         $result = [];

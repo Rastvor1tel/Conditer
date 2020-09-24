@@ -507,7 +507,7 @@ if (\Bitrix\Main\Grid\Context::isInternalRequest()) :
 			BX.onCustomEvent(window, 'BX.Main.grid:paramsUpdated', []);
 		}
 
-		leftMenuOneHeight();
+		//leftMenuOneHeight();
 
 	})();
 </script><?

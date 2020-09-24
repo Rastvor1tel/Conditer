@@ -3,6 +3,18 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 $buildOrderRow = function ($item) {
 	$items = array_map(fn($product) => CIBlockElement::GetByID($product)->Fetch()["NAME"], $item["PROPERTIES"]["PRODUCTS"]["VALUE"]);
+	$actions = [
+		[
+			"text"    => "Заказать",
+			"onclick" => "add2basket({$item["ID"]});"
+		]
+	];
+	if ($item["PROPERTIES"]["NOT_DELETED"]["VALUE"] != "Y") {
+		$actions[] = [
+			"text"    => "Удалить",
+			"onclick" => "deleteItem({$item["ID"]});"
+		];
+	}
 	return [
 		"data" => [
 			"ID"           => $item["ID"],
@@ -11,15 +23,7 @@ $buildOrderRow = function ($item) {
 			"ORGANIZATION" => $item["PROPERTIES"]["ORGANIZATION_NAME"]["VALUE"],
 			"PRODUCTS"     => implode("<br>", $items),
 		],
-		"actions" => [
-			[
-				"text"    => "Заказать",
-				"onclick" => "#"
-			], [
-				"text"    => "Удалить",
-				"onclick" => "deleteItem({$item["ID"]});"
-			]
-		]
+		"actions" => $actions
 	];
 };
 

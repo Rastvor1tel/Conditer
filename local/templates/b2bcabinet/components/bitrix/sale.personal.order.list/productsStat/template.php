@@ -84,7 +84,7 @@
 				'GRID_ID'            => 'PRODUCT_LIST',
 				'HEADERS'            => [
 					["id" => "NAME", "name" => GetMessage('NAME'), "sort" => "NAME", "default" => true, "editable" => false],
-					["id" => "FORMATED_PRICE", "name" => GetMessage('PRICE'), "default" => true, "sort" => "PRICE"],
+					["id" => "PRICE", "name" => GetMessage('PRICE'), "default" => true, "sort" => "PRICE"],
 					["id" => "QUANTITY", "name" => GetMessage('QUANTITY'), "default" => true, "sort" => "QUANTITY"],
 				],
 				'ROWS'               => $arResult['ROWS'],
