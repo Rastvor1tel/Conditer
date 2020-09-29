@@ -9,8 +9,12 @@ require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/header.php');
 $APPLICATION->SetTitle(Loc::getMessage('ORDERS_MAKE_ORDER'));
 $APPLICATION->SetPageProperty('title_prefix', '<span class="font-weight-semibold">' . Loc::getMessage("ORDERS_ORDERS") . '</span> - ');
 
+if ((!$_SESSION['PRICE_ID'] && !$_SESSION['ORGANIZATION_ID'])) {
+	$orgArray = DialHelper::bildOrganizationList();
+	DialHelper::checkActiveOrganization($orgArray);
+}
 
-if (!Loader::includeModule('sotbit.b2bcabinet') || (!$_SESSION['PRICE_ID'] && !$_SESSION['ORGANIZATION_ID'])) {
+if (!Loader::includeModule('sotbit.b2bcabinet')) {
 	header('Location: ' . SITE_DIR);
 	exit;
 }

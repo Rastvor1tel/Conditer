@@ -48,13 +48,21 @@
 								],
 								"items"  => $arResult["BUYERS"]
 							], [
-								"id"     => "ID",
+								"id"     => "PRODUCT_ID",
 								"name"   => GetMessage("NAME"),
 								"type"   => "list",
 								"params" => [
 									"multiple" => "Y"
 								],
-								"items"  => $arResult["PRODUCTS"]
+								"items"  => $arResult["CATALOG"]["PRODUCTS"]
+							], [
+								"id"     => "SECTION_ID",
+								"name"   => GetMessage("SECTION"),
+								"type"   => "list",
+								"params" => [
+									"multiple" => "Y"
+								],
+								"items"  => $arResult["CATALOG"]["SECTIONS"]
 							],
 						],
 						"ENABLE_LIVE_SEARCH" => true,

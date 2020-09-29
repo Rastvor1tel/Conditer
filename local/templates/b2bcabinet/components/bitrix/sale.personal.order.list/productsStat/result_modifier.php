@@ -48,13 +48,27 @@ if ($idBuyers) {
 	}
 }
 
-$orgs = $idOrders = [];
+$orgs = $idOrders = $catalog = [];
 
-foreach ($arResult['ORDERS'] as $key => $arOrder) {
-	$idOrders[] = $arOrder['ORDER']['ID'];
-}
+$idOrders = array_map(fn($item) => $item["ORDER"]["ID"], $arResult['ORDERS']);
 
-$arResult["PRODUCTS"] = $products;
+array_walk($arResult['ORDERS'], function (&$order) use (&$catalog) {
+	return array_walk($order["BASKET_ITEMS"], function (&$item) use (&$catalog) {
+		$arItem = CIBlockElement::GetByID($item["PRODUCT_ID"])->Fetch();
+		$arSection = CIBlockSection::GetByID($arItem["IBLOCK_SECTION_ID"])->Fetch();
+		if ($arSection) {
+			$item["SECTION"] = [
+				"ID"   => $arSection["ID"],
+				"NAME" => $arSection["NAME"]
+			];
+			if (!$catalog["SECTIONS"][$arSection["ID"]])
+				$catalog["SECTIONS"][$arSection["ID"]] = $arSection["NAME"];
+		}
+		return (!$catalog["PRODUCTS"][$item["PRODUCT_ID"]]) ? $catalog["PRODUCTS"][$item["PRODUCT_ID"]] = $item["NAME"] : false;
+	});
+});
+
+$arResult["CATALOG"] = $catalog;
 
 $arResult['BUYERS'] = [];
 
@@ -106,13 +120,14 @@ foreach ($arResult['ORDERS'] as $arOrder) {
 		"ID"       => $item["PRODUCT_ID"],
 		"NAME"     => $item["NAME"],
 		"QUANTITY" => $item["QUANTITY"],
-		"PRICE"    => $item["PRICE"]
+		"PRICE"    => $item["PRICE"],
+		"SECTION"  => $item["SECTION"]
 	], $arOrder['BASKET_ITEMS']);
 	
 	$orderStatus = [];
 	if ($arOrder['ORDER']['CANCELED'] == 'Y') {
 		$orderStatus = [
-			"ID" => "cancel",
+			"ID"   => "cancel",
 			"NAME" => $lang['SPOL_PSEUDO_CANCELLED'],
 			"SORT" => 0
 		];
@@ -176,18 +191,6 @@ if ($filterData) {
 	$arResult["ROWS"] = array_filter($arResult["ROWS"], $filterRows);
 }
 
-
-$products = [];
-
-array_walk($arResult['ROWS'], function ($row) use (&$products) {
-	return array_walk($row["data"]["ITEMS_DATA"], function ($item) use (&$products) {
-		return (!$products[$item["ID"]]) ? $products[$item["ID"]] = $item["NAME"] : false;
-	});
-});
-
-
-$arResult["PRODUCTS"] = $products;
-
 $itemRows = [];
 
 foreach ($arResult["ROWS"] as $arRow) {
@@ -214,6 +217,10 @@ $arResult["ROWS"] = $itemRows;
 if ($filterData) {
 	$filterRows = function ($item) use ($filterData, $compareItemsArray) {
 		if ($filterData["ID"] && ($item["data"]["ID"] != $filterData["ID"])) return false;
+		
+		if ($filterData["SECTION_ID"])
+			if (!in_array($item["data"]["SECTION"]["ID"], $filterData["SECTION_ID"])) return false;
+		
 		return true;
 	};
 	

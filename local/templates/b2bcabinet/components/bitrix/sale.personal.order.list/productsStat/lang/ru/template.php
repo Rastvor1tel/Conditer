@@ -2,6 +2,7 @@
 
 $MESS["ID"] = "ID";
 $MESS["NAME"] = "Товар";
+$MESS["SECTION"] = "Раздел";
 $MESS["PRICE"] = "Сумма, руб";
 $MESS["QUANTITY"] = "Количество";
 

@@ -51,11 +51,26 @@ if ($idBuyers) {
 	}
 }
 
-$orgs = $idOrders = [];
+$orgs = $idOrders = $products = [];
 
 $idOrders = array_map(fn($item) => $item["ORDER"]["ID"], $arResult['ORDERS']);
 
+array_walk($arResult['ORDERS'], function ($order) use (&$products) {
+	return array_walk($order["BASKET_ITEMS"], function ($item) use (&$products) {
+		return (!$products[$item["PRODUCT_ID"]]) ? $products[$item["PRODUCT_ID"]] = $item["NAME"] : false;
+	});
+});
+
+$arResult["PRODUCTS"] = $products;
+
+$arResult['BUYERS'] = [];
+
 if ($buyers) {
+	foreach ($buyers as $id => $v) {
+		$name = $v['ORG'];
+		$name .= ($v['INN']) ? ' (' . $v['INN'] . ')' : '';
+		$arResult['BUYERS'][$id] = $name;
+	}
 	$rs = \Bitrix\Sale\Internals\OrderPropsValueTable::getList([
 		'filter' => [
 			'ORDER_ID'       => $idOrders,
