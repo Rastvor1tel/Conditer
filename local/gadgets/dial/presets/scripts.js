@@ -1,17 +1,3 @@
-var deleteItem = function(item){
-	$.ajax({
-		url: "/ajax/presetOrder.php",
-		method: "POST",
-		data: {
-			action: "delete",
-			item: item
-		},
-		success: function (data) {
-			BX.Main.gridManager.getById("presetsList").instance.reloadTable();
-		}
-	});
-};
-
 var add2basket = function(item){
 	$.ajax({
 		url: "/ajax/presetOrder.php",
@@ -28,3 +14,11 @@ var add2basket = function(item){
 		}
 	});
 };
+
+$(function(){
+	$(".preset-title-link").click(function(e){
+		e.preventDefault();
+		var id = $(this).data("id");
+		add2basket(id);
+	});
+});

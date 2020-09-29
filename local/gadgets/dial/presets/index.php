@@ -9,6 +9,7 @@ use Bitrix\Main\Loader, Bitrix\Main\Localization\Loc, Bitrix\Main\Page\Asset;
 Loc::loadMessages(__FILE__);
 
 Asset::getInstance()->addCss($arGadget['PATH_SITEROOT'] . '/styles.css');
+Asset::getInstance()->addJs($arGadget['PATH_SITEROOT'] . '/scripts.js');
 global $USER;
 $idUser = intval($USER->GetID());
 

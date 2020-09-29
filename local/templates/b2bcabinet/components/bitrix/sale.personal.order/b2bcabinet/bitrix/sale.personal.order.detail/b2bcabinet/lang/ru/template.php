@@ -28,6 +28,7 @@ $MESS["SPOD_ORDER_PROPERTIES"] = "Параметры заказа";
 $MESS["SPOD_ORDER_USER_COMMENT"] = "Комментарии покупателя";
 $MESS["SPOD_ORDER_PAYMENT"] = "Параметры оплаты:";
 $MESS["SPOD_ORDER_SHIPMENT"] = "Параметры доставки";
+$MESS["SPOD_ORDER_COMMENT"] = "Комментарий";
 $MESS["SPOD_PAY_SYSTEM"] = "Платёжная система:";
 $MESS["SPOD_ORDER_PAYED"] = "Оплачен:";
 $MESS["SPOD_ORDER_DELIVERY"] = "Служба доставки:";

@@ -1,14 +1,17 @@
-.preset-container-link {
-    padding: 10px 0px;
+.sotbit-cabinet-gadget-presets .preset-container-link {
+    padding: 10px 0;
     border-bottom: 1px solid #dadada;
 }
-.preset-edit-link {
+.sotbit-cabinet-gadget-presets .preset-container-link a {
+    color: #000000;
+}
+.sotbit-cabinet-gadget-presets a.preset-edit-link {
     margin: 15px 0;
     display: inline-block;
     color: #6f727c;
     font-size: 15px;
+    font-family: ProximaNova, Calibri;
     text-decoration: none;
-    padding-bottom: 1px;
     border-bottom: 1px dotted #6f727c;
     line-height: 15px;
 }

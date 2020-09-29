@@ -1,7 +1,8 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-use Bitrix\Main\Config\Option;
-use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Config\Option,
+	Bitrix\Main\Localization\Loc,
+	Bitrix\Sale\Order;
 
 $lang = [
 	"SPOL_PSEUDO_CANCELLED" => Loc::GetMessage('SPOL_PSEUDO_CANCELLED'),
@@ -17,6 +18,8 @@ $innProps = unserialize(Option::get('sotbit.b2bcabinet', 'PROFILE_ORG_INN'));
 $orgProps = unserialize(Option::get('sotbit.b2bcabinet', 'PROFILE_ORG_NAME'));
 
 $idBuyers = [];
+
+global $USER;
 $rs = CSaleOrderUserProps::GetList(
 	["DATE_UPDATE" => "DESC"],
 	[
@@ -48,30 +51,11 @@ if ($idBuyers) {
 	}
 }
 
-$orgs = $idOrders = $products = [];
+$orgs = $idOrders = [];
 
-foreach ($arResult['ORDERS'] as $key => $arOrder) {
-	$idOrders[] = $arOrder['ORDER']['ID'];
-	foreach ($arOrder["BASKET_ITEMS"] as $arItem) {
-		if (!$products[$arItem["PRODUCT_ID"]]) {
-			$products[$arItem["PRODUCT_ID"]] = $arItem["NAME"];
-		}
-	}
-}
-
-$arResult["PRODUCTS"] = $products;
-
-//print_r($arResult['ORDERS']);
-
-$arResult['BUYERS'] = [];
+$idOrders = array_map(fn($item) => $item["ORDER"]["ID"], $arResult['ORDERS']);
 
 if ($buyers) {
-	foreach ($buyers as $id => $v) {
-		$name = $v['ORG'];
-		$name .= ($v['INN']) ? ' (' . $v['INN'] . ')' : '';
-		$arResult['BUYERS'][$id] = $name;
-	}
-	
 	$rs = \Bitrix\Sale\Internals\OrderPropsValueTable::getList([
 		'filter' => [
 			'ORDER_ID'       => $idOrders,
@@ -84,7 +68,7 @@ if ($buyers) {
 				$name = $v['ORG'];
 				$name .= ($v['INN']) ? ' (' . $v['INN'] . ')' : '';
 				$orgs[$org['ORDER_ID']] = [
-					"HTML" => '<a href="' . $methodIstall . 'personal/buyer/profile_detail.php?ID=' . $id . '">' . $name . '</a>',
+					"HTML" => "<a href=\"{$methodIstall}personal/buyer/profile_detail.php?ID={$id}\">{$name}</a>",
 					"ID"   => $id
 				];
 			}
@@ -101,8 +85,8 @@ foreach ($arResult['INFO']['STATUS'] as $arStatus) {
 	$arResult["STATUS"][$arStatus["ID"]] = $arStatus["NAME"];
 }
 
-
 foreach ($arResult['ORDERS'] as $arOrder) {
+	$order = Order::load($arOrder["ORDER"]["ID"]);
 	$aActions = [
 		["ICONCLASS" => "detail", "TEXT" => GetMessage('SPOL_MORE_ABOUT_ORDER'), "ONCLICK" => "jsUtils.Redirect(arguments, '" . $arOrder['ORDER']["URL_TO_DETAIL"] . "')", "DEFAULT" => true]
 	];
@@ -135,6 +119,7 @@ foreach ($arResult['ORDERS'] as $arOrder) {
 			'ITEMS_DATA'      => $itemsData,
 			'STATUS_NAME'     => $orderStatus["NAME"],
 			'STATUS'          => $orderStatus,
+			'COMMENT'         => $order->getField("COMMENTS"),
 			'PAYED'           => GetMessage('SPOL_' . ($arOrder["ORDER"]["PAYED"] == "Y" ? 'YES' : 'NO')),
 			'PAY_SYSTEM_ID'   => $arOrder["ORDER"]["PAY_SYSTEM_ID"],
 			'DELIVERY_ID'     => $arOrder["ORDER"]["DELIVERY_ID"],

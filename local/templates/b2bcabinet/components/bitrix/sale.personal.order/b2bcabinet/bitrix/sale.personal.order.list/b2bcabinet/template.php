@@ -93,6 +93,7 @@
 					["id" => "ID", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_ID'), "sort" => "ID", "default" => true, "editable" => false],
 					["id" => "DATE", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_DATE'), "sort" => "DATE", "default" => true, "editable" => false],
 					["id" => "STATUS_NAME", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_STATUS'), "sort" => "STATUS", "default" => true, "editable" => true],
+					["id" => "COMMENT", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_COMMENT'), "sort" => "COMMENT", "default" => true, "editable" => true],
 					["id" => "FORMATED_PRICE", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_FORMATED_PRICE'), "default" => true, "sort" => "PRICE"],
 					["id" => "ITEMS", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_ITEMS')],
 					["id" => "BUYER", "name" => GetMessage('SPOL_ORDER_FIELD_NAME_BUYER')],

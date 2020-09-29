@@ -414,6 +414,25 @@ if (!empty($arResult['ERRORS']['FATAL'])) {
                                                 </div>
                                             </div>
                                         </div>
+	                                    <div class="col-md-12 my-2">
+		                                    <div class="card">
+			                                    <div class="card-header header-elements-inline blank_detail-card_headers">
+				                                    <h6 class="card-title"><?= Loc::getMessage("SPOD_ORDER_COMMENT")?></h6>
+				                                    <div class="header-elements">
+					                                    <div class="list-icons">
+						                                    <a class="list-icons-item" data-action="collapse"></a>
+					                                    </div>
+				                                    </div>
+			                                    </div>
+			                                    <div class="card-body bg-light mb-0">
+				                                    <dl class="row mb-0">
+					                                    <div class="col-sm-12">
+						                                   <?=$arResult["COMMENTS"]?>
+					                                    </div>
+				                                    </dl>
+			                                    </div>
+		                                    </div>
+	                                    </div>
                                     </div>
                                 </div>
                                 <div class="blank_detail_table">
