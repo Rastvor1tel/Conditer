@@ -84,7 +84,72 @@
 				</div>
 			</div>
 		</div>
+		
 		<?
+		$getHeader = function ($arDate) {
+			$result = "";
+			$rowItem = <<<ITEM
+				<div class="report-section-table__item report-section-table__item_gray">Сумма</div>
+				<div class="report-section-table__item report-section-table__item_gray">Количество</div>
+			ITEM;
+			$rowItemBold = <<<ITEM
+				<div class="report-section-table__item report-section-table__item_gray report-section-table__item_bold">Сумма</div>
+				<div class="report-section-table__item report-section-table__item_gray report-section-table__item_bold">Количество</div>
+			ITEM;
+			$result .= "<div class=\"report-section-table__row-top\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
+			array_walk($arDate, function ($item, $month) use (&$result, $rowItem) {
+				$result .= "<div class=\"report-section-table__item report-section-table__item_gray report-section-table__item_bold report-section-table__item_big\">{$month}</div>";
+			});
+			$result .= "<div class=\"report-section-table__item report-section-table__item_gray report-section-table__item_bold report-section-table__item_big\">Итого</div></div>";
+			$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
+			array_walk($arDate, function ($item) use (&$result, $rowItem) {
+				$result .= $rowItem;
+			});
+			$result .= $rowItemBold;
+			$result .= "</div>";
+			return $result;
+		};
+		
+		function getRow($arItem) {
+			$result = "";
+			foreach ($arItem as $section) {
+				$style = (($section["ITEMS"]) || ($section["NAME"] == "Итого"))? " report-section-table__item_bold" : "";
+				$result .= "<div class=\"report-section-table__row{$style}\">";
+				$result .= "<div class=\"report-section-table__item report-section-table__item_gray\">{$section["NAME"]}</div>";
+				foreach ($section["COUNT"] as $key => $date) {
+					$bacground = ($key == "Итого")? " report-section-table__item_gray" : "";
+					$result .= <<<ITEM
+						<div class="report-section-table__item{$bacground}">{$date["SUMM"]}</div>
+						<div class="report-section-table__item{$bacground}">{$date["COUNT"]}</div>
+					ITEM;
+				}
+				$result .= "</div>";
+				$result .= getRow($section["ITEMS"]);
+			}
+			return $result;
+		}
+		
+		$getBody = function ($arResult) {
+			$result = "";
+			$result .= getRow($arResult);
+			return $result;
+		};
+		
+		echo <<<TABLE
+			<div class="report-section__bottom">
+				<div class="report-section__bottom-wrapper">
+					<div class="report-section-table">
+						<div class="report-section-table-head">
+							{$getHeader($arResult["TABLE"]["DATE"])}
+							<div class="report-section-table-head-body">
+								{$getBody($arResult["TABLE"]["ROWS"])}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		TABLE;
+		
 		$APPLICATION->IncludeComponent(
 			'bitrix:main.ui.grid',
 			'',
@@ -141,14 +206,14 @@
 	</div>
 <? endif ?>
 <style>
-    .main-grid-wrapper {
-        padding: 5px;
-    }
-    .nicescroll-rails-hr {
-        position: relative;
-    }
+	.main-grid-wrapper {
+		padding: 5px;
+	}
+	.nicescroll-rails-hr {
+		position: relative;
+	}
 </style>
 <script>
-	//$('.main-grid-container').niceScroll({emulatetouch: true, bouncescroll: false, cursoropacitymin: 1, enabletranslate3d: true, cursorfixedheight: '100', scrollspeed: 25, mousescrollstep: 10,  cursorwidth: '8px', horizrailenabled: true, cursordragontouch: true});
+    //$('.main-grid-container').niceScroll({emulatetouch: true, bouncescroll: false, cursoropacitymin: 1, enabletranslate3d: true, cursorfixedheight: '100', scrollspeed: 25, mousescrollstep: 10,  cursorwidth: '8px', horizrailenabled: true, cursordragontouch: true});
 
 </script>

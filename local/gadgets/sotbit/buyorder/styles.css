@@ -134,9 +134,6 @@
 .sotbit_cabinet .sotbit-cabinet-gadget-buyorder .gdheader {
 	margin: 0;
 }
-.sotbit_cabinet .sotbit-cabinet-gadget-buyorder .gdcontent {
-	padding: 0;
-}
 .sotbit_cabinet .sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link {
 	padding: 15px 10px 15px 0px;
 }
@@ -162,9 +159,6 @@
 }
 .sotbit-cabinet-gadget-buyorder .gdheader {
 	margin: 0!important;
-}
-.sotbit-cabinet-gadget-buyorder .gdcontent {
-	padding: 0!important;
 }
 .sotbit-cabinet-gadget-buyorder .b2b-gadget-buyorder-link {
 	padding: 15px 10px 15px 0px!important;

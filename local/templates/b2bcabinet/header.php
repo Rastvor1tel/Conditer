@@ -52,6 +52,7 @@ $methodIstall = Option::get('sotbit.b2bcabinet', 'method_install', '', SITE_ID) 
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/layout.min.css");
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/components.min.css");
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/colors.min.css");
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/custom.css");
 
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/main/jquery.min.js");
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/main/bootstrap.bundle.min.js");

@@ -193,6 +193,265 @@ if ($filterData) {
 
 $itemRows = [];
 
+$dateArray = $resultArray = [];
+
+array_walk($arResult["ROWS"], function ($row) use (&$dateArray, &$resultArray) {
+	$dateOrder = $row["data"]["DATE_INSERT"]->getTimestamp();
+	$month = date("F-y", $dateOrder);
+	$day = date("m-d-y", $dateOrder);
+	if (!$dateArray[$month])
+		$dateArray[$month] = ["SUMM" => 0, "COUNT" => 0];
+	if (!$dateArray[$day])
+		$dateArray[$day] = ["SUMM" => 0, "COUNT" => 0];
+});
+
+array_walk($arResult["ROWS"], function ($row) use ($dateArray, &$resultArray) {
+	$dateOrder = $row["data"]["DATE_INSERT"]->getTimestamp();
+	$month = date("F-y", $dateOrder);
+	$day = date("m-d-y", $dateOrder);
+	$arItems = $row["data"]["ITEMS_DATA"];
+	array_walk($arItems, function($item) use (&$resultArray, $dateArray, $month, $day){
+		if (!$resultArray[$item["ID"]]) {
+			$resultArray[$item["ID"]]["NAME"] = $item["NAME"];
+			$resultArray[$item["ID"]]["COUNT"] = $dateArray;
+		}
+		$resultArray[$item["ID"]]["COUNT"][$month]["SUMM"] = 1;
+		$resultArray[$item["ID"]]["COUNT"][$month]["COUNT"] = 1;
+		$resultArray[$item["ID"]]["COUNT"][$day]["SUMM"] = 1;
+		$resultArray[$item["ID"]]["COUNT"][$day]["COUNT"] = 1;
+	});
+});
+
+echo "<pre>";
+print_r($dateArray);
+print_r($resultArray);
+echo "</pre>";
+
+/*$dateArray = [
+	"Feb-20" => [
+		"02-01-20" => 0,
+		"02-02-20" => 0,
+		"02-29-20" => 0
+	],
+	"Mar-20" => [
+		"03-01-20" => 0,
+		"03-02-20" => 0,
+		"03-31-20" => 0
+	]
+];
+$resultArray = [
+	[
+		"NAME"  => "Группа1",
+		"COUNT" => [
+			"Feb-20"   => [
+				"SUMM"  => 470,
+				"COUNT" => 40
+			],
+			"02-01-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"02-02-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"02-29-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"Mar-20"   => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"03-01-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"03-02-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"03-31-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"Итого"    => [
+				"SUMM"  => 987,
+				"COUNT" => 80
+			]
+		],
+		"ITEMS" => [
+			[
+				"NAME"  => "Товар1",
+				"COUNT" => [
+					"Feb-20"   => [
+						"SUMM"  => 470,
+						"COUNT" => 40
+					],
+					"02-01-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"02-02-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"02-29-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"Mar-20"   => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-01-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-02-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-31-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"Итого"    => [
+						"SUMM"  => 987,
+						"COUNT" => 80
+					]
+				],
+			], [
+				"NAME"  => "Товар2",
+				"COUNT" => [
+					"Feb-20"   => [
+						"SUMM"  => 470,
+						"COUNT" => 40
+					],
+					"02-01-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"02-02-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"02-29-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"Mar-20"   => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-01-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-02-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-31-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"Итого"    => [
+						"SUMM"  => 987,
+						"COUNT" => 80
+					]
+				],
+			], [
+				"NAME"  => "Товар3",
+				"COUNT" => [
+					"Feb-20"   => [
+						"SUMM"  => 470,
+						"COUNT" => 40
+					],
+					"02-01-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"02-02-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"02-29-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"Mar-20"   => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-01-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-02-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"03-31-20" => [
+						"SUMM"  => 517,
+						"COUNT" => 40
+					],
+					"Итого"    => [
+						"SUMM"  => 987,
+						"COUNT" => 80
+					]
+				],
+			]
+		]
+	], [
+		"NAME"  => "Итого",
+		"COUNT" => [
+			"Feb-20"   => [
+				"SUMM"  => 470,
+				"COUNT" => 40
+			],
+			"02-01-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"02-02-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"02-29-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"Mar-20"   => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"03-01-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"03-02-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"03-31-20" => [
+				"SUMM"  => 517,
+				"COUNT" => 40
+			],
+			"Итого"    => [
+				"SUMM"  => 987,
+				"COUNT" => 80
+			]
+		],
+	]
+];*/
+
+$arResult["TABLE"] = [
+	"DATE" => $dateArray,
+	"ROWS" => $resultArray
+];
+
+
 foreach ($arResult["ROWS"] as $arRow) {
 	foreach ($arRow["data"]["ITEMS_DATA"] as $arItem) {
 		if (!$itemRows[$arItem["ID"]]) {
