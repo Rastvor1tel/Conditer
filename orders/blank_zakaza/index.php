@@ -232,9 +232,10 @@ if (!$USER->IsAuthorized()) {
 			"FILTER_PROPERTY_CODE"                         => [
 				0 => "CML2_ACTION",
 				1 => "CML2_NEW",
-				2 => "CML2_DISCOUNT",
-				3 => "CML2_HIT",
-				4 => "",
+				2 => "VENDOR",
+				3 => "CML2_DISCOUNT",
+				4 => "CML2_HIT",
+				5 => "",
 			],
 			"FILTER_PRICE_CODE"                            => [
 				0 => "BASE",
