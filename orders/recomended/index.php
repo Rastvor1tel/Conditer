@@ -2,6 +2,12 @@
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Рекомендованный заказ");
 
+global $presetFilter, $USER;
+
+$presetFilter = [
+	"PROPERTY_USER" => $USER->GetID()
+];
+
 $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"presetOrders",
@@ -14,7 +20,7 @@ $APPLICATION->IncludeComponent(
 		"SORT_ORDER1"                     => "ASC",
 		"SORT_BY2"                        => "ID",
 		"SORT_ORDER2"                     => "ASC",
-		"FILTER_NAME"                     => "",
+		"FILTER_NAME"                     => "presetFilter",
 		"FIELD_CODE"                      => [
 			0 => "",
 			1 => "",

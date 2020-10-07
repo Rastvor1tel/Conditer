@@ -26,7 +26,10 @@ if ($action == "add") {
 		["ID", "PRODUCT_ID", "QUANTITY"]
 	);
 	while ($arItems = $dbBasketItems->Fetch()) {
-		$productsIDs[] = $arItems["PRODUCT_ID"];
+		$productsIDs[] = [
+			"VALUE"       => $arItems["PRODUCT_ID"],
+			"DESCRIPTION" => $arItems["QUANTITY"]
+		];
 	}
 	
 	$arFields = [
@@ -52,23 +55,27 @@ if ($action == "delete") {
 }
 
 if ($action == "add2basket") {
-	$preset = $action = $request["item"];
+	$preset = $request["item"];
 	$basket = new CSaleBasket();
 	$basket->DeleteAll(CSaleBasket::GetBasketUserID());
 	$basketData = [];
-	$rsBasketItems = CIBlockElement::GetList([], ["IBLOCK_ID" => 6, "ID" => $preset], false, false, ["ID", "NAME", "PROPERTY_PRODUCTS", "PROPERTY_ORGANIZATION_ID"]);
-	while ($arBasketItem = $rsBasketItems->Fetch()) {
-		$arItem = CIBlockElement::GetByID($arBasketItem["PROPERTY_PRODUCTS_VALUE"])->Fetch();
-		$arPrice = CPrice::GetBasePrice($arItem["ID"]);
-		$basketData["ITEMS"][] = [
-			"NAME" => $arItem["NAME"],
-			"PRODUCT_ID" => $arPrice["PRODUCT_ID"],
-			"PRICE" => $arPrice["PRICE"],
-			"CURRENCY" => $arPrice["CURRENCY"],
-			"QUANTITY"   => 1,
-			"LID" => SITE_ID
-		];
-		$basketData["ORGANIZATION"] = $arBasketItem["PROPERTY_ORGANIZATION_ID_VALUE"];
+	$rsBasketItems = CIBlockElement::GetList([], ["IBLOCK_ID" => 6, "ID" => $preset], false, false, ["ID", "IBLOCK_ID", "NAME", "PROPERTY_PRODUCTS", "PROPERTY_ORGANIZATION_ID"]);
+	while ($arBasketItem = $rsBasketItems->GetNextElement()) {
+		$basketProps = $arBasketItem->GetProperties();
+		$basketData["ITEMS"] = [];
+		array_walk($basketProps["PRODUCTS"]["VALUE"], function ($item, $key) use ($basketProps, &$basketData) {
+			$arItem = CIBlockElement::GetByID($item)->Fetch();
+			$arPrice = CPrice::GetBasePrice($arItem["ID"]);
+			$basketData["ITEMS"][] = [
+				"NAME"       => $arItem["NAME"],
+				"PRODUCT_ID" => $arPrice["PRODUCT_ID"],
+				"PRICE"      => $arPrice["PRICE"],
+				"CURRENCY"   => $arPrice["CURRENCY"],
+				"QUANTITY"   => $basketProps["PRODUCTS"]["DESCRIPTION"][$key],
+				"LID"        => SITE_ID
+			];
+		});
+		$basketData["ORGANIZATION"] = $basketProps["ORGANIZATION_ID"]["VALUE"];
 	}
 	array_walk($basketData["ITEMS"], fn($item) => $basket->Add($item));
 	$basketData["QUANTITY"] = count($basketData["ITEMS"]);

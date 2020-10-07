@@ -92,20 +92,15 @@
 				<div class="report-section-table__item report-section-table__item_gray">Сумма</div>
 				<div class="report-section-table__item report-section-table__item_gray">Количество</div>
 			ITEM;
-			$rowItemBold = <<<ITEM
-				<div class="report-section-table__item report-section-table__item_gray report-section-table__item_bold">Сумма</div>
-				<div class="report-section-table__item report-section-table__item_gray report-section-table__item_bold">Количество</div>
-			ITEM;
-			$result .= "<div class=\"report-section-table__row-top\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
+			$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
 			array_walk($arDate, function ($item, $month) use (&$result, $rowItem) {
 				$result .= "<div class=\"report-section-table__item report-section-table__item_gray report-section-table__item_bold report-section-table__item_big\">{$month}</div>";
 			});
-			$result .= "<div class=\"report-section-table__item report-section-table__item_gray report-section-table__item_bold report-section-table__item_big\">Итого</div></div>";
+			$result .= "</div>";
 			$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
 			array_walk($arDate, function ($item) use (&$result, $rowItem) {
 				$result .= $rowItem;
 			});
-			$result .= $rowItemBold;
 			$result .= "</div>";
 			return $result;
 		};
@@ -113,14 +108,14 @@
 		function getRow($arItem) {
 			$result = "";
 			foreach ($arItem as $section) {
-				$style = (($section["ITEMS"]) || ($section["NAME"] == "Итого"))? " report-section-table__item_bold" : "";
-				$result .= "<div class=\"report-section-table__row{$style}\">";
-				$result .= "<div class=\"report-section-table__item report-section-table__item_gray\">{$section["NAME"]}</div>";
+				$style = (($section["IS_SECTION"] == "Y") || ($section["NAME"] == "Итого")) ? " report-section-table__item_bold" : "";
+				$result .= "<div class=\"report-section-table__row\">";
+				$result .= "<div class=\"report-section-table__item report-section-table__item_gray{$style}\">{$section["NAME"]}</div>";
 				foreach ($section["COUNT"] as $key => $date) {
-					$bacground = ($key == "Итого")? " report-section-table__item_gray" : "";
+					$background = (($key == "Итого") || ($section["NAME"] == "Итого")) ? " report-section-table__item_gray report-section-table__item_bold" : "";
 					$result .= <<<ITEM
-						<div class="report-section-table__item{$bacground}">{$date["SUMM"]}</div>
-						<div class="report-section-table__item{$bacground}">{$date["COUNT"]}</div>
+						<div class="report-section-table__item{$background}">{$date["SUMM"]}</div>
+						<div class="report-section-table__item{$background}">{$date["COUNT"]}</div>
 					ITEM;
 				}
 				$result .= "</div>";
@@ -150,7 +145,7 @@
 			</div>
 		TABLE;
 		
-		$APPLICATION->IncludeComponent(
+		/*$APPLICATION->IncludeComponent(
 			'bitrix:main.ui.grid',
 			'',
 			[
@@ -201,7 +196,7 @@
 			],
 			$component,
 			['HIDE_ICONS' => 'Y']
-		);
+		);*/
 		?>
 	</div>
 <? endif ?>

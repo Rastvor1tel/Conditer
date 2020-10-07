@@ -2,7 +2,14 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 $buildOrderRow = function ($item) {
-	$items = array_map(fn($product) => CIBlockElement::GetByID($product)->Fetch()["NAME"], $item["PROPERTIES"]["PRODUCTS"]["VALUE"]);
+	$items = [];
+	array_walk($item["PROPERTIES"]["PRODUCTS"]["VALUE"], function ($product, $key) use ($item, &$items) {
+		$product = CIBlockElement::GetByID($product)->Fetch();
+		if ($item["PROPERTIES"]["PRODUCTS"]["DESCRIPTION"][$key])
+			$items[] = "{$product["NAME"]} x {$item["PROPERTIES"]["PRODUCTS"]["DESCRIPTION"][$key]}";
+		else
+			$items[] = "{$product["NAME"]}";
+	});
 	$actions = [
 		[
 			"text"    => "Заказать",
@@ -16,7 +23,7 @@ $buildOrderRow = function ($item) {
 		];
 	}
 	return [
-		"data" => [
+		"data"    => [
 			"ID"           => $item["ID"],
 			"NAME"         => $item["NAME"],
 			"DATE"         => $item["TIMESTAMP_X"],

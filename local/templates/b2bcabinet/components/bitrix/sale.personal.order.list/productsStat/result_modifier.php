@@ -193,7 +193,7 @@ if ($filterData) {
 
 $itemRows = [];
 
-$dateArray = $resultArray = [];
+$dateArray = $resultArray = $month = [];
 
 array_walk($arResult["ROWS"], function ($row) use (&$dateArray, &$resultArray) {
 	$dateOrder = $row["data"]["DATE_INSERT"]->getTimestamp();
@@ -205,246 +205,53 @@ array_walk($arResult["ROWS"], function ($row) use (&$dateArray, &$resultArray) {
 		$dateArray[$day] = ["SUMM" => 0, "COUNT" => 0];
 });
 
+$dateArray["Итого"] = ["SUMM" => 0, "COUNT" => 0];
+
 array_walk($arResult["ROWS"], function ($row) use ($dateArray, &$resultArray) {
 	$dateOrder = $row["data"]["DATE_INSERT"]->getTimestamp();
 	$month = date("F-y", $dateOrder);
 	$day = date("m-d-y", $dateOrder);
 	$arItems = $row["data"]["ITEMS_DATA"];
-	array_walk($arItems, function($item) use (&$resultArray, $dateArray, $month, $day){
+	array_walk($arItems, function ($item) use (&$resultArray, $dateArray, $month, $day) {
+		$section = $item["SECTION"]["NAME"] ?? "Без раздела";
+		if (!$resultArray[$section]) {
+			$resultArray[$section]["NAME"] = $section;
+			$resultArray[$section]["IS_SECTION"] = "Y";
+			$resultArray[$section]["COUNT"] = $dateArray;
+		}
 		if (!$resultArray[$item["ID"]]) {
 			$resultArray[$item["ID"]]["NAME"] = $item["NAME"];
 			$resultArray[$item["ID"]]["COUNT"] = $dateArray;
 		}
-		$resultArray[$item["ID"]]["COUNT"][$month]["SUMM"] = 1;
-		$resultArray[$item["ID"]]["COUNT"][$month]["COUNT"] = 1;
-		$resultArray[$item["ID"]]["COUNT"][$day]["SUMM"] = 1;
-		$resultArray[$item["ID"]]["COUNT"][$day]["COUNT"] = 1;
+		$resultArray[$section]["COUNT"][$month]["SUMM"] += $item["PRICE"];
+		$resultArray[$section]["COUNT"][$month]["COUNT"] += $item["QUANTITY"];
+		$resultArray[$section]["COUNT"][$day]["SUMM"] += $item["PRICE"];
+		$resultArray[$section]["COUNT"][$day]["COUNT"] += $item["QUANTITY"];
+		$resultArray[$section]["COUNT"]["Итого"]["SUMM"] += $item["PRICE"];
+		$resultArray[$section]["COUNT"]["Итого"]["COUNT"] += $item["QUANTITY"];
+		
+		$resultArray[$item["ID"]]["COUNT"][$month]["SUMM"] += $item["PRICE"];
+		$resultArray[$item["ID"]]["COUNT"][$month]["COUNT"] += $item["QUANTITY"];
+		$resultArray[$item["ID"]]["COUNT"][$day]["SUMM"] += $item["PRICE"];
+		$resultArray[$item["ID"]]["COUNT"][$day]["COUNT"] += $item["QUANTITY"];
+		$resultArray[$item["ID"]]["COUNT"]["Итого"]["SUMM"] += $item["PRICE"];
+		$resultArray[$item["ID"]]["COUNT"]["Итого"]["COUNT"] += $item["QUANTITY"];
 	});
 });
 
-echo "<pre>";
-print_r($dateArray);
-print_r($resultArray);
-echo "</pre>";
-
-/*$dateArray = [
-	"Feb-20" => [
-		"02-01-20" => 0,
-		"02-02-20" => 0,
-		"02-29-20" => 0
-	],
-	"Mar-20" => [
-		"03-01-20" => 0,
-		"03-02-20" => 0,
-		"03-31-20" => 0
-	]
+$resultArray[] = [
+	"NAME"  => "Итого",
+	"COUNT" => $dateArray
 ];
-$resultArray = [
-	[
-		"NAME"  => "Группа1",
-		"COUNT" => [
-			"Feb-20"   => [
-				"SUMM"  => 470,
-				"COUNT" => 40
-			],
-			"02-01-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"02-02-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"02-29-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"Mar-20"   => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"03-01-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"03-02-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"03-31-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"Итого"    => [
-				"SUMM"  => 987,
-				"COUNT" => 80
-			]
-		],
-		"ITEMS" => [
-			[
-				"NAME"  => "Товар1",
-				"COUNT" => [
-					"Feb-20"   => [
-						"SUMM"  => 470,
-						"COUNT" => 40
-					],
-					"02-01-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"02-02-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"02-29-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"Mar-20"   => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-01-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-02-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-31-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"Итого"    => [
-						"SUMM"  => 987,
-						"COUNT" => 80
-					]
-				],
-			], [
-				"NAME"  => "Товар2",
-				"COUNT" => [
-					"Feb-20"   => [
-						"SUMM"  => 470,
-						"COUNT" => 40
-					],
-					"02-01-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"02-02-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"02-29-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"Mar-20"   => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-01-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-02-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-31-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"Итого"    => [
-						"SUMM"  => 987,
-						"COUNT" => 80
-					]
-				],
-			], [
-				"NAME"  => "Товар3",
-				"COUNT" => [
-					"Feb-20"   => [
-						"SUMM"  => 470,
-						"COUNT" => 40
-					],
-					"02-01-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"02-02-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"02-29-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"Mar-20"   => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-01-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-02-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"03-31-20" => [
-						"SUMM"  => 517,
-						"COUNT" => 40
-					],
-					"Итого"    => [
-						"SUMM"  => 987,
-						"COUNT" => 80
-					]
-				],
-			]
-		]
-	], [
-		"NAME"  => "Итого",
-		"COUNT" => [
-			"Feb-20"   => [
-				"SUMM"  => 470,
-				"COUNT" => 40
-			],
-			"02-01-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"02-02-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"02-29-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"Mar-20"   => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"03-01-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"03-02-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"03-31-20" => [
-				"SUMM"  => 517,
-				"COUNT" => 40
-			],
-			"Итого"    => [
-				"SUMM"  => 987,
-				"COUNT" => 80
-			]
-		],
-	]
-];*/
+
+array_walk($resultArray, function ($item) use (&$resultArray) {
+	if ($item["NAME"] != "Итого") {
+		array_walk($item["COUNT"], function ($count, $key) use (&$resultArray) {
+			$resultArray[array_key_last($resultArray)]["COUNT"][$key]["SUMM"] += $count["SUMM"];
+			$resultArray[array_key_last($resultArray)]["COUNT"][$key]["COUNT"] += $count["COUNT"];
+		});
+	}
+});
 
 $arResult["TABLE"] = [
 	"DATE" => $dateArray,

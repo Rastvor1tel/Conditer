@@ -256,14 +256,14 @@
 	display: flex
 }
 .report-section-table__item {
-	width: calc(100% / 19);
+	min-width: calc(100% / 19);
 	padding: .4375rem 0;
 	display: flex;
 	align-items: center;
 	justify-content: center
 }
 .report-section-table__item_big {
-	width: calc((100% - 100% / 19) / 9)
+	min-width: calc((100% - 100% / 19) / 9)
 }
 .report-section-table__item_gray {
 	background: #dddddd
@@ -273,4 +273,9 @@
 }
 .report-section-table__print {
 	max-width: 185px
+}
+.report-section-table__row .report-section-table__item:first-child {
+	min-width: 200px!important;
+	padding: 5px 5px;
+	justify-content: flex-start;
 }
