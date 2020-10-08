@@ -308,8 +308,9 @@ if (DialHelper::checkAjax()) {
 	$GLOBALS['APPLICATION']->RestartBuffer();
 	
 	$header = \Bitrix\Main\Context::getCurrent()->getRequest()->getPostList()->getValues();
-	$helper = new DialHelper();
-	$helper->export2Excel($header, $arResult["ROWS"], "Список заказанных товаров");
+	$helper = new DialHelperCrutch();
+	$helper->export2ExcelCrutch($arResult["TABLE"], "Список заказанных товаров");
+	//$helper->export2Excel($header, $arResult["ROWS"], "Список заказанных товаров");
 	
 	die();
 }

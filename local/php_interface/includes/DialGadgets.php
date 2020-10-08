@@ -5,7 +5,8 @@ use Bitrix\Main\Config\Option, Bitrix\Main\Loader, Bitrix\Sale\Order, \Bitrix\Ma
 class DialGadgets {
 	public function getRecomendedOrders() {
 		$result = [];
-		$rsItems = CIBlockElement::GetList([], ["IBLOCK_ID" => 6, "ACTIVE" => "Y"], false, false, ["ID", "IBLOCK_ID", "NAME"]);
+		global $USER;
+		$rsItems = CIBlockElement::GetList([], ["IBLOCK_ID" => 6, "ACTIVE" => "Y", "PROPERTY_USER" => $USER->GetID()], false, false, ["ID", "IBLOCK_ID", "NAME"]);
 		while ($arItem = $rsItems->Fetch()) {
 			$result[] = [
 				"ID" => $arItem["ID"],

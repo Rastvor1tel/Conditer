@@ -1,4 +1,50 @@
-<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
+<?php
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+
+$getHeader = function ($arDate) {
+	$result = "";
+	$rowItem = <<<ITEM
+				<div class="report-section-table__item report-section-table__item_gray">Сумма</div>
+				<div class="report-section-table__item report-section-table__item_gray">Количество</div>
+			ITEM;
+	$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
+	array_walk($arDate, function ($item, $month) use (&$result, $rowItem) {
+		$result .= "<div class=\"report-section-table__item report-section-table__item_gray report-section-table__item_bold report-section-table__item_big\">{$month}</div>";
+	});
+	$result .= "</div>";
+	$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
+	array_walk($arDate, function ($item) use (&$result, $rowItem) {
+		$result .= $rowItem;
+	});
+	$result .= "</div>";
+	return $result;
+};
+
+function getRow($arItem) {
+	$result = "";
+	foreach ($arItem as $section) {
+		$style = (($section["IS_SECTION"] == "Y") || ($section["NAME"] == "Итого")) ? " report-section-table__item_bold" : "";
+		$result .= "<div class=\"report-section-table__row\">";
+		$result .= "<div class=\"report-section-table__item report-section-table__item_gray{$style}\">{$section["NAME"]}</div>";
+		foreach ($section["COUNT"] as $key => $date) {
+			$background = (($section["IS_SECTION"] == "Y") || ($key == "Итого") || ($section["NAME"] == "Итого")) ? " report-section-table__item_gray report-section-table__item_bold" : "";
+			$result .= <<<ITEM
+						<div class="report-section-table__item{$background}">{$date["SUMM"]}</div>
+						<div class="report-section-table__item{$background}">{$date["COUNT"]}</div>
+					ITEM;
+		}
+		$result .= "</div>";
+		$result .= getRow($section["ITEMS"]);
+	}
+	return $result;
+}
+
+$getBody = function ($arResult) {
+	$result = "";
+	$result .= getRow($arResult);
+	return $result;
+};
+?>
 
 <? if (!empty($arResult['ERRORS']['FATAL'])): ?>
 	
@@ -86,50 +132,6 @@
 		</div>
 		
 		<?
-		$getHeader = function ($arDate) {
-			$result = "";
-			$rowItem = <<<ITEM
-				<div class="report-section-table__item report-section-table__item_gray">Сумма</div>
-				<div class="report-section-table__item report-section-table__item_gray">Количество</div>
-			ITEM;
-			$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
-			array_walk($arDate, function ($item, $month) use (&$result, $rowItem) {
-				$result .= "<div class=\"report-section-table__item report-section-table__item_gray report-section-table__item_bold report-section-table__item_big\">{$month}</div>";
-			});
-			$result .= "</div>";
-			$result .= "<div class=\"report-section-table__row\"><div class=\"report-section-table__item report-section-table__item_gray\"></div>";
-			array_walk($arDate, function ($item) use (&$result, $rowItem) {
-				$result .= $rowItem;
-			});
-			$result .= "</div>";
-			return $result;
-		};
-		
-		function getRow($arItem) {
-			$result = "";
-			foreach ($arItem as $section) {
-				$style = (($section["IS_SECTION"] == "Y") || ($section["NAME"] == "Итого")) ? " report-section-table__item_bold" : "";
-				$result .= "<div class=\"report-section-table__row\">";
-				$result .= "<div class=\"report-section-table__item report-section-table__item_gray{$style}\">{$section["NAME"]}</div>";
-				foreach ($section["COUNT"] as $key => $date) {
-					$background = (($key == "Итого") || ($section["NAME"] == "Итого")) ? " report-section-table__item_gray report-section-table__item_bold" : "";
-					$result .= <<<ITEM
-						<div class="report-section-table__item{$background}">{$date["SUMM"]}</div>
-						<div class="report-section-table__item{$background}">{$date["COUNT"]}</div>
-					ITEM;
-				}
-				$result .= "</div>";
-				$result .= getRow($section["ITEMS"]);
-			}
-			return $result;
-		}
-		
-		$getBody = function ($arResult) {
-			$result = "";
-			$result .= getRow($arResult);
-			return $result;
-		};
-		
 		echo <<<TABLE
 			<div class="report-section__bottom">
 				<div class="report-section__bottom-wrapper">
