@@ -68,7 +68,7 @@ $getBody = function ($arResult) {
 				<?
 				$APPLICATION->IncludeComponent(
 					"bitrix:main.ui.filter",
-					"b2bcabinet",
+					"products",
 					[
 						"FILTER_ID"          => "PRODUCT_LIST",
 						"GRID_ID"            => "PRODUCT_LIST",
@@ -102,7 +102,7 @@ $getBody = function ($arResult) {
 								],
 								"items"  => $arResult["CATALOG"]["PRODUCTS"]
 							], [
-								"id"     => "SECTION_ID",
+								"id"     => "SECTION",
 								"name"   => GetMessage("SECTION"),
 								"type"   => "list",
 								"params" => [

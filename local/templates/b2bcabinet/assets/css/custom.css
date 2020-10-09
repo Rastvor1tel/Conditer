@@ -256,14 +256,15 @@
 	display: flex
 }
 .report-section-table__item {
-	min-width: calc(100% / 19);
+	width: calc(100% / 19);
 	padding: .4375rem 0;
 	display: flex;
+	flex-grow: 1;
 	align-items: center;
 	justify-content: center
 }
 .report-section-table__item_big {
-	min-width: calc((100% - 100% / 19) / 9)
+	width: calc((100% - 100% / 19) / 9)
 }
 .report-section-table__item_gray {
 	background: #dddddd

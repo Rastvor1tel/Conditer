@@ -61,8 +61,8 @@ array_walk($arResult['ORDERS'], function (&$order) use (&$catalog) {
 				"ID"   => $arSection["ID"],
 				"NAME" => $arSection["NAME"]
 			];
-			if (!$catalog["SECTIONS"][$arSection["ID"]])
-				$catalog["SECTIONS"][$arSection["ID"]] = $arSection["NAME"];
+			if (!$catalog["SECTIONS"][$arSection["NAME"]])
+				$catalog["SECTIONS"][$arSection["NAME"]] = $arSection["NAME"];
 		}
 		return (!$catalog["PRODUCTS"][$item["PRODUCT_ID"]]) ? $catalog["PRODUCTS"][$item["PRODUCT_ID"]] = $item["NAME"] : false;
 	});
@@ -191,8 +191,6 @@ if ($filterData) {
 	$arResult["ROWS"] = array_filter($arResult["ROWS"], $filterRows);
 }
 
-$itemRows = [];
-
 $dateArray = $resultArray = $month = [];
 
 array_walk($arResult["ROWS"], function ($row) use (&$dateArray, &$resultArray) {
@@ -220,7 +218,9 @@ array_walk($arResult["ROWS"], function ($row) use ($dateArray, &$resultArray) {
 			$resultArray[$section]["COUNT"] = $dateArray;
 		}
 		if (!$resultArray[$item["ID"]]) {
+			$resultArray[$item["ID"]]["ID"] = $item["ID"];
 			$resultArray[$item["ID"]]["NAME"] = $item["NAME"];
+			$resultArray[$item["ID"]]["SECTION"] = $item["SECTION"]["NAME"];
 			$resultArray[$item["ID"]]["COUNT"] = $dateArray;
 		}
 		$resultArray[$section]["COUNT"][$month]["SUMM"] += $item["PRICE"];
@@ -238,6 +238,25 @@ array_walk($arResult["ROWS"], function ($row) use ($dateArray, &$resultArray) {
 		$resultArray[$item["ID"]]["COUNT"]["Итого"]["COUNT"] += $item["QUANTITY"];
 	});
 });
+
+if ($filterData) {
+	$filterRows = function ($item) use ($filterData) {
+		if ($filterData["PRODUCT_ID"])
+			if (!in_array($item["ID"], $filterData["PRODUCT_ID"])) return false;
+		
+		if ($filterData["SECTION"]) {
+			if (($item["IS_SECTION"] == "Y")) {
+				if (!in_array($item["NAME"], $filterData["SECTION"])) return false;
+			} else {
+				if (!in_array($item["SECTION"], $filterData["SECTION"])) return false;
+			}
+		}
+		
+		return true;
+	};
+	
+	$resultArray = array_filter($resultArray, $filterRows);
+}
 
 $resultArray[] = [
 	"NAME"  => "Итого",
@@ -258,6 +277,7 @@ $arResult["TABLE"] = [
 	"ROWS" => $resultArray
 ];
 
+/*$itemRows = [];
 
 foreach ($arResult["ROWS"] as $arRow) {
 	foreach ($arRow["data"]["ITEMS_DATA"] as $arItem) {
@@ -301,7 +321,7 @@ if ($sortData["sort"]) {
 	$fieldName = key($sortData["sort"]);
 	$fieldDirection = current($sortData["sort"]);
 	usort($arResult["ROWS"], "sort{$fieldName}{$fieldDirection}");
-}
+}*/
 
 //Выгрузка в Excel
 if (DialHelper::checkAjax()) {

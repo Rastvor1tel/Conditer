@@ -14,6 +14,14 @@ $aMenuLinks = [
 		['ICON_CLASS' => 'icon-stack-text'],
 		""
 	],
+
+    [
+	    "Отзывы",
+	    SITE_DIR."reviews/",
+	    [],
+	    [],
+	    ""
+    ],
 	[
 		"Персональные данные",
         SITE_DIR."personal/",

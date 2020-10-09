@@ -149,7 +149,10 @@ if ($NS['STEP'] == 3 || $max_execution_time == 0) {
 					$itemPropsPrice = unserialize($arProduct['ATTRIBUTES']);
 					
 					$elementXmlID = "{$itemPropsPrice["ВнешнийКод"]}_{$arOrganization["PRICE"]}";
-					$elementIDs[] = $obImport->GetElementByXML_ID(3, $elementXmlID);
+					$elementIDs[] = [
+						"VALUE" =>$obImport->GetElementByXML_ID(3, $elementXmlID),
+						"DESCRIPTION" => $itemPropsPrice["Количество"]
+					];
 				}
 			}
 			
