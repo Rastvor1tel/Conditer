@@ -680,7 +680,7 @@ body.bx-theme-yellow .catalog-block-header{border-color:#f4b236;}
 }
 
 .index_blank-categories .nav-sidebar .nav-item:not(.nav-item-divider) li {
-	margin: 0 1.25rem 0.5rem 2.25rem;
+	margin: 0 0 0.5rem 1rem;
 }
 
 .content-wrapper.index_blank_wrapper {

@@ -160,7 +160,6 @@ if ($arSectionsFilter) {
 	}
 }
 
-
 $arElements = $arData["arElements"];
 $arSections = $arData["arSections"];
 

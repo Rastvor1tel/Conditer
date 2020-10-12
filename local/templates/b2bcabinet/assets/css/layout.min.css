@@ -63,9 +63,6 @@ body{min-height:100%;display:-webkit-box;display:-webkit-flex;display:-moz-box;d
 }
 .nav-item-submenu.nav-item-open>.nav-link:after{-webkit-transform:rotate(90deg);transform:rotate(90deg)}
 .nav-group-sub{display:none}
-.nav-group-sub .nav-link{padding:.625rem 1.25rem .625rem 3.5rem}
-.nav-group-sub .nav-group-sub .nav-link{padding-left:4.75rem}
-.nav-group-sub .nav-group-sub .nav-group-sub .nav-link{padding-left:6rem}
 .nav-group-sub .nav-item-submenu>.nav-link:after{top:.625rem}
 .nav-item-expanded>.nav-group-sub{display:block}
 .nav-scrollspy .nav-item-open .nav-link:not(.active)+.nav,.nav-scrollspy .nav-link.active+.nav{display:block}
