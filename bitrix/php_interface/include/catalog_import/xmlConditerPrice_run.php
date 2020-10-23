@@ -157,6 +157,13 @@ class xmlCatalogPriceImport {
 		return $result;
 	}
 	
+	public function deleteSKU($arElement, $iblockID) {
+		$rsOffers = CIBlockElement::GetList([], ["IBLOCK_ID" => $iblockID, "CML2_LINK" => $arElement["ID"]], false, false, ["IBLOCK_ID", "ID"]);
+		while ($arOffer = $rsOffers->Fetch()) {
+			CIBlockElement::Delete($arOffer["ID"]);
+		}
+	}
+	
 	public function prepareSKU($arElement, $iblockID, $arOffer) {
 		$obImport = new CIBlockCMLImport();
 		$elementXML_ID = "{$arOffer["ВнешнийКод"]}_{$arElement["PRICELIST"]}";
@@ -439,6 +446,7 @@ if ($NS['STEP'] == 4 || $max_execution_time == 0) {
 				$import->prepareSection($IBLOCK_ID, $iblockID);
 				while ($arProduct = $rsProduct->Fetch()) {
 					$element = $import->prepareElement($arProduct, $IBLOCK_ID, $iblockID);
+					$import->deleteSKU($element, $iblockOfferID);
 					$rsOffers = $obXMLFile->GetList([], ['PARENT_ID' => $arProduct['ID'], 'NAME' => 'Предложение']);
 					if ($rsOffers->SelectedRowsCount() > 0) {
 						while ($arOffer = $rsOffers->Fetch()) {
