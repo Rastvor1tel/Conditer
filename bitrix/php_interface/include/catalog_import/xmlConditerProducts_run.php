@@ -6,7 +6,7 @@ use Bitrix\Main\Diag\Debug, Bitrix\Catalog\Model\Price, Bitrix\Catalog\Model\Pro
 
 IncludeModuleLangFile($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/catalog/import_setup_templ.php');
 
-$max_execution_time = 400;
+$max_execution_time = 60;
 
 if (defined("BX_CAT_CRON") && true == BX_CAT_CRON) {
     $max_execution_time = 0;
