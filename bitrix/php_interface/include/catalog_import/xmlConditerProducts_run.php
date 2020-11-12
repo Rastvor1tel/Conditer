@@ -1,6 +1,5 @@
 ﻿<?
-//<title>Импорт товаров</title>
-/** @global string $URL_FILE_1C */
+//<title>Импорт товаров</title>/** @global string $URL_FILE_1C */
 
 use Bitrix\Main\Diag\Debug, Bitrix\Catalog\Model\Price, Bitrix\Catalog\Model\Product, Bitrix\Main\Entity;
 
@@ -91,7 +90,8 @@ function addElement($iblockID, $itemProps) {
             'VENDOR'        => $itemProps['Производитель'],
             'CONDITIONS'    => $itemProps['УсловияХранения'],
             'CONSIST'       => $itemProps['Состав'],
-            'WEIGTH'        => $itemProps['Вес']
+            'WEIGTH'        => $itemProps['Вес'],
+			'BREND'        => $itemProps['Бренд'] //ЕПЮ
         ],
         "NAME"              => $itemProps['Название'],
         'PREVIEW_PICTURE'   => $img,

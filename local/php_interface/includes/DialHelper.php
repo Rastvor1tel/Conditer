@@ -4,6 +4,7 @@ use \Bitrix\Main\Web\Json;
 
 class DialHelper {
 	static public function checkActiveOrganization($arOrganizations) {
+		print_r("{$_COOKIE['ORGANIZATION_ID']} - {$_SESSION['ORGANIZATION_ID']}");
 		if ($_REQUEST['ORGANIZATION_ID']) {
 			if ($_REQUEST['ORGANIZATION_ID'] == "empty") {
 				unset($_SESSION['PRICE_ID'], $_SESSION['ORGANIZATION_ID']);
@@ -16,6 +17,10 @@ class DialHelper {
 					}
 				}
 			}
+		} elseif (!$_COOKIE['ORGANIZATION_ID'] || !$_SESSION['ORGANIZATION_ID']) {
+			$_SESSION['PRICE_ID'] = $arOrganizations[0]['PRICE'];
+			$_SESSION['ORGANIZATION_ID'] = $arOrganizations[0]['ID'];
+			setcookie("ORGANIZATION_ID", $arOrganizations[0]['ID'], time() + 3600, "/");
 		} elseif ($_SESSION['ORGANIZATION_ID'] != $_COOKIE['ORGANIZATION_ID']) {
 			foreach ($arOrganizations as $arItem) {
 				if ($arItem['ID'] == $_COOKIE['ORGANIZATION_ID']) {
@@ -24,10 +29,6 @@ class DialHelper {
 					setcookie("ORGANIZATION_ID", $arItem['ID'], time() + 3600, "/");
 				}
 			}
-		} elseif (!$_COOKIE['ORGANIZATION_ID'] || !$_SESSION['ORGANIZATION_ID']) {
-			$_SESSION['PRICE_ID'] = $arOrganizations[0]['PRICE'];
-			$_SESSION['ORGANIZATION_ID'] = $arOrganizations[0]['ID'];
-			setcookie("ORGANIZATION_ID", $arOrganizations[0]['ID'], time() + 3600, "/");
 		}
 	}
 	
@@ -201,6 +202,7 @@ class DialHelper {
 
 class DialHelperCrutch extends DialHelper {
 	private array $boldArray = [];
+	
 	/**
 	 * @param array $rows
 	 * @param string $listTitle
@@ -233,7 +235,7 @@ class DialHelperCrutch extends DialHelper {
 		foreach ($header as $month => $head) {
 			if ($month == "Итого") {
 				$this->boldArray["COLUMNS"][] = $abc[$indexColumn];
-				$this->boldArray["COLUMNS"][] = $abc[$indexColumn+1];
+				$this->boldArray["COLUMNS"][] = $abc[$indexColumn + 1];
 			}
 			$excelData[$abc[$indexColumn]][1] = $month;
 			$excelData[$abc[$indexColumn]][2] = "Сумма";
@@ -245,7 +247,7 @@ class DialHelperCrutch extends DialHelper {
 		foreach ($rows as $row) {
 			$indexColumn = 1;
 			$excelData[$abc[0]][$indexRow] = $row["NAME"];
-			if (($row["IS_SECTION"] == "Y")||($row["NAME"] == "Итого")) {
+			if (($row["IS_SECTION"] == "Y") || ($row["NAME"] == "Итого")) {
 				$this->boldArray["ROWS"][] = $indexRow;
 			}
 			foreach ($row["COUNT"] as $month => $count) {
@@ -288,7 +290,7 @@ class DialHelperCrutch extends DialHelper {
 						]
 					];
 					$sheet->getStyle($column . $row)->applyFromArray($bg);
-				} elseif($row == 2) {
+				} elseif ($row == 2) {
 					$sheet->getColumnDimension($column)->setAutoSize(true);
 					$sheet->getStyle($column . $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 					$sheet->getStyle($column . $row)->getFont()->setBold(true);
