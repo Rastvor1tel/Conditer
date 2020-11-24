@@ -1,4 +1,4 @@
-Время старта: 2020-09-21 11:55:15
+Время старта: 2020-11-24 09:53:20
 
 Временные таблицы удалены.
 
@@ -6,19 +6,5 @@
 
 Before read $fileName. $fileName = /var/www/conditer-service/data/www/conditer-service.dev.dialtest.ru/upload/1c_catalog/products.xml
 
-Файл импорта прочитан.
-
-Время импорта: 00:00:00 (0s)
-
-Импортировано 68 разделов
-
-Р’СЂРµРјСЏ СЃС‚Р°СЂС‚Р°: 2020-09-21 12:46:09
-
-Р’СЂРµРјРµРЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ СѓРґР°Р»РµРЅС‹.
-
-Р’СЂРµРјРµРЅРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ СЃРѕР·РґР°РЅС‹.
-
-Befor read $fileName. $fileName = /var/www/conditer-service/data/www/conditer-service.dev.dialtest.ru/upload/1c_catalog/users.xml
-
-Р¤Р°Р№Р» РёРјРїРѕСЂС‚Р° РїСЂРѕС‡РёС‚Р°РЅ.
+Ошибка открытия файла импорта.
 
