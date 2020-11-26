@@ -4,6 +4,15 @@ use \Bitrix\Main\Web\Json;
 
 class DialHelper {
 	static public function checkActiveOrganization($arOrganizations) {
+		/*$checkOrganisation = false;
+		foreach ($arOrganizations as $arItem) {
+			if ($arItem['ID'] == $_COOKIE['ORGANIZATION_ID']) {
+				$checkOrganisation = true;
+				break;
+			}
+		}
+		if (!$checkOrganisation)
+			unset($_SESSION['ORGANIZATION_ID']);*/
 		if ($_REQUEST['ORGANIZATION_ID']) {
 			if ($_REQUEST['ORGANIZATION_ID'] == "empty") {
 				unset($_SESSION['PRICE_ID'], $_SESSION['ORGANIZATION_ID']);

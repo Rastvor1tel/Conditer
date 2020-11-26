@@ -4,6 +4,8 @@ define("NEED_AUTH", true);
 
 global $APPLICATION;
 use Bitrix\Main\Page\Asset;
+
+unset($_SESSION['ORGANIZATION_ID']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
