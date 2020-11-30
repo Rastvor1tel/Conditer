@@ -158,7 +158,9 @@ class xmlCatalogPriceImport {
 	}
 	
 	public function deleteSKU($arElement, $iblockID) {
-		$rsOffers = CIBlockElement::GetList([], ["IBLOCK_ID" => $iblockID, "CML2_LINK" => $arElement["ID"]], false, false, ["IBLOCK_ID", "ID"]);
+		Debug::writeToFile($arElement, "", "/local/php_interface/import.log");
+		Debug::writeToFile($iblockID, "", "/local/php_interface/import.log");
+		$rsOffers = CIBlockElement::GetList([], ["IBLOCK_ID" => $iblockID, "PROPERTY_CML2_LINK" => $arElement["ID"]], false, false, ["IBLOCK_ID", "ID"]);
 		while ($arOffer = $rsOffers->Fetch()) {
 			CIBlockElement::Delete($arOffer["ID"]);
 		}
